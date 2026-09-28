@@ -5,6 +5,10 @@
 # configuration file.  Customize the paths, etc. as
 # needed to fit your system.
 
+# Public documentation and the token-authenticated MCP endpoint.
+AliasMatch ^/mcp/help/?$ "@datadir@/mcp.php"
+ScriptAliasMatch ^/mcp/?$ "@sbindir@/mcp.cgi"
+
 ScriptAlias @cgiurl@ "@sbindir@"
 
 <Directory "@sbindir@">
@@ -80,4 +84,11 @@ Alias @htmurl@ "@datadir@"
       AuthUserFile @sysconfdir@/htpasswd.users
       Require valid-user
    </IfVersion>
+</Directory>
+
+# Public connection instructions contain no monitoring data or credentials.
+<Directory "@datadir@">
+   <Files "mcp.php">
+      Require all granted
+   </Files>
 </Directory>

@@ -9,7 +9,8 @@ permissions a user has in the web interface.
 - Transport: MCP *Streamable HTTP* in stateless mode. Each request is one
   JSON-RPC message sent with `POST`; the response is a single
   `application/json` body. There are no sessions and no extra daemon.
-- Endpoint: `https://<server>/nagios/cgi-bin/mcp.cgi`
+- Endpoint: `https://<server>/mcp` (the original CGI URL remains available).
+- Public connection instructions: `https://<server>/mcp/help`.
 - Protocol versions: 2025-11-25, 2025-06-18, 2025-03-26, 2024-11-05
 
 ## Setup
@@ -33,7 +34,7 @@ permissions a user has in the web interface.
 3. Connect the assistant, e.g. Claude Code:
 
    ```sh
-   claude mcp add --transport http nagios https://nagios.example.com/nagios/cgi-bin/mcp.cgi \
+   claude mcp add --transport http nagios https://nagios.example.com/mcp \
        --header "Authorization: Bearer nagmcp_…"
    ```
 
