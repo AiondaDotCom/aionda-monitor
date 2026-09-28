@@ -8,6 +8,8 @@ Nagios Core 4 Change Log
 * Add optional form based login page (Apache mod_auth_form) that works with password managers, installed via make install-webconf-formauth (Stephan Ferraro)
 * Fix unclosed hidden nagFormId input in cmd.cgi that broke the command form markup (Stephan Ferraro)
 * Fix corewindow permalinks producing protocol-relative URLs and double encoded query values (Stephan Ferraro)
+* Add mcp.cgi, a Model Context Protocol server that lets AI assistants query and operate Nagios with bearer tokens, per-token scopes and the usual cgi.cfg permissions (Stephan Ferraro)
+* Add optional object configuration changes through MCP: planned as a diff, validated with nagios -v, backed up, applied in place and reloaded (Stephan Ferraro)
 
 4.5.14 - 2026-08-05
 -------------------
