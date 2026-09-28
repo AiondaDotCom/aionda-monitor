@@ -58,25 +58,27 @@ NAGIOS_BEGIN_DECL
 
 	/**************************** STYLE SHEET NAMES ******************************/
 
-#define COMMON_CSS         "common.css"
+/* Refresh cached CGI styles after an upgrade, as the PHP pages do. */
 
-#define SHOWLOG_CSS        "showlog.css"
-#define STATUS_CSS         "status.css"
-#define STATUSMAP_CSS      "statusmap.css"
-#define COMMAND_CSS        "cmd.css"
-#define EXTINFO_CSS        "extinfo.css"
-#define NOTIFICATIONS_CSS  "notifications.css"
-#define HISTORY_CSS        "history.css"
-#define CONFIG_CSS         "config.css"
-#define OUTAGES_CSS        "outages.css"
-#define TRENDS_CSS         "trends.css"
-#define AVAIL_CSS          "avail.css"
-#define TAC_CSS            "tac.css"
-#define HISTOGRAM_CSS      "histogram.css"
-#define CHECKSANITY_CSS    "checksanity.css"
-#define MINISTATUS_CSS     "ministatus.css"
-#define SUMMARY_CSS        "summary.css"
-#define NAGFUNCS_CSS       "nag_funcs.css"
+#define COMMON_CSS         "common.css?v=" PROGRAM_VERSION
+
+#define SHOWLOG_CSS        "showlog.css?v=" PROGRAM_VERSION
+#define STATUS_CSS         "status.css?v=" PROGRAM_VERSION
+#define STATUSMAP_CSS      "statusmap.css?v=" PROGRAM_VERSION
+#define COMMAND_CSS        "cmd.css?v=" PROGRAM_VERSION
+#define EXTINFO_CSS        "extinfo.css?v=" PROGRAM_VERSION
+#define NOTIFICATIONS_CSS  "notifications.css?v=" PROGRAM_VERSION
+#define HISTORY_CSS        "history.css?v=" PROGRAM_VERSION
+#define CONFIG_CSS         "config.css?v=" PROGRAM_VERSION
+#define OUTAGES_CSS        "outages.css?v=" PROGRAM_VERSION
+#define TRENDS_CSS         "trends.css?v=" PROGRAM_VERSION
+#define AVAIL_CSS          "avail.css?v=" PROGRAM_VERSION
+#define TAC_CSS            "tac.css?v=" PROGRAM_VERSION
+#define HISTOGRAM_CSS      "histogram.css?v=" PROGRAM_VERSION
+#define CHECKSANITY_CSS    "checksanity.css?v=" PROGRAM_VERSION
+#define MINISTATUS_CSS     "ministatus.css?v=" PROGRAM_VERSION
+#define SUMMARY_CSS        "summary.css?v=" PROGRAM_VERSION
+#define NAGFUNCS_CSS       "nag_funcs.css?v=" PROGRAM_VERSION
 
 	/********************************* JAVASCRIPT INCLUDES **********************/
 #define JQUERY_JS          "jquery-3.7.1.min.js"

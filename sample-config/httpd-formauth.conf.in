@@ -18,6 +18,10 @@
 # Install with "make install-webconf-formauth" instead of
 # "make install-webconf".
 
+# Public documentation and the token-authenticated MCP endpoint.
+AliasMatch ^/mcp/help/?$ "@datadir@/mcp.php"
+ScriptAliasMatch ^/mcp/?$ "@sbindir@/mcp.cgi"
+
 ScriptAlias @cgiurl@ "@sbindir@"
 
 <Directory "@sbindir@">
@@ -106,3 +110,20 @@ Alias @htmurl@ "@datadir@"
 
    Require all granted
 </Location>
+
+# Public connection instructions contain no monitoring data or credentials.
+<Directory "@datadir@">
+   <Files "mcp.php">
+      Session Off
+      Require all granted
+   </Files>
+</Directory>
+
+# MCP authenticates bearer tokens itself, independently of browser sessions.
+<Directory "@sbindir@">
+   <Files "mcp.cgi">
+      Session Off
+      Require all granted
+      CGIPassAuth On
+   </Files>
+</Directory>

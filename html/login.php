@@ -3,7 +3,6 @@
 // See sample-config/httpd-formauth.conf for the matching Apache setup.
 include_once(dirname(__FILE__).'/includes/utils.inc.php');
 
-$this_version = '4.5.14';
 // empty theme class: follow the operating system setting
 $theme = isset($cfg['theme']) ? $cfg['theme'] : 'auto';
 if ($theme != 'dark' && $theme != 'light') {
@@ -335,7 +334,7 @@ header('Cache-Control: no-store');
 		<button type="submit" class="submit">Log in</button>
 	</form>
 
-	<p class="footer">Nagios&reg; Core&trade; <?= $this_version ?></p>
+	<p class="footer">Nagios&reg; Core&trade;</p>
 </main>
 <script>
 	document.getElementById('toggle').addEventListener('click', function() {
