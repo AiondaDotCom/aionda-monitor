@@ -2,7 +2,7 @@
 
 Product lockup created for Aionda Monitor on 2026-09-28 using the existing Aionda
 brand assets provided by the project owner. The cyan/turquoise Aionda symbol and
-wordmark are paired with a Monitor label and a monitoring signal line.
+wordmark are paired with a Monitor label.
 
 Reference: https://agentboard.aionda.com/aionda_logo.png
 Higher-resolution light/dark brand variants come from Aionda's website assets.
