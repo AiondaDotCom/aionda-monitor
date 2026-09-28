@@ -252,6 +252,7 @@ devclean: distclean
 
 test: nagios cgis
 	cd $(BLD_LIB) && $(MAKE) test
+	cd $(BLD_CGI) && $(MAKE) test
 	$(MAKE) test-perl
 	$(MAKE) test-tap
 
