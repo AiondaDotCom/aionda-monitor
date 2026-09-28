@@ -266,7 +266,7 @@ is($res->{error}{code}, -32601, 'unknown method');
 
 ($status, $res) = rpc($admin, 'tools/list');
 my %tools = map { $_->{name} => $_ } @{ $res->{result}{tools} };
-is(scalar(keys %tools), 28, 'admin token sees all 28 tools');
+is(scalar(keys %tools), 29, 'admin token sees all 29 tools');
 ok($tools{list_problems}{annotations}{readOnlyHint}, 'read tools are marked read-only');
 ok($tools{cancel_downtime}{annotations}{destructiveHint}, 'cancel_downtime is marked destructive');
 is($tools{get_host}{inputSchema}{required}[0], 'host', 'input schemas are valid JSON');
@@ -274,6 +274,15 @@ is($tools{get_host}{inputSchema}{required}[0], 'host', 'input schemas are valid 
 $res = call_tool($admin, 'no_such_tool');
 is($res->{error}{code}, -32602, 'unknown tool is a protocol error');
 
+
+# Online help diagnoses missing grants without granting any rights.
+$res = call_tool($admin, 'get_help', { topic => 'configuration' });
+ok(!$res->{isError}, 'online help works with configuration disabled');
+ok(!$res->{structuredContent}{current_access}{can_plan_config}, 'help reports unavailable config access');
+like($res->{structuredContent}{guide}{configuration}, qr/plan_config_change.*apply_config_change/s, 'help explains plan and apply');
+unlike($json->encode($res), qr/\Q$admin\E/, 'help never returns the bearer token');
+$res = call_tool($admin, 'get_help', { topic => 'invalid' });
+ok($res->{isError}, 'unknown help topic rejected');
 
 # ---- read tools
 
@@ -427,8 +436,13 @@ $res = call_tool($cfg_token, 'plan_config_change', { changes => [] });
 is($res->{error}{code}, -32602, 'and cannot be called');
 
 enable_config();
+$res = call_tool($cfg_token, 'get_help');
+ok($res->{structuredContent}{current_access}{can_plan_config}, 'help reflects enabled config rights');
+ok(!$res->{structuredContent}{current_access}{command_changes_enabled}, 'command opt-in reported separately');
+$res = call_tool($admin, 'get_help');
+ok(!$res->{structuredContent}{current_access}{can_plan_config}, 'admin alone does not grant config in help');
 ($status, $res) = rpc($cfg_token, 'tools/list');
-is(scalar @{ $res->{result}{tools} }, 34, 'admin+config token sees 34 tools once enabled');
+is(scalar @{ $res->{result}{tools} }, 35, 'admin+config token sees 35 tools once enabled');
 ($status, $res) = rpc($admin, 'tools/list');
 ok(!grep({ $_->{name} eq 'plan_config_change' } @{ $res->{result}{tools} }), 'admin scope alone does not include config');
 

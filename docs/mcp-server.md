@@ -73,9 +73,17 @@ Token creation and revocation are logged to the web server's error log.
 Commands submitted through MCP show up in the Nagios log like any external
 command, with `<user> (MCP)` as author.
 
+## Online help
+
+Call `get_help` (optionally with `topic`: `monitoring`, `configuration`,
+`authentication`, or `troubleshooting`) for workflows, examples and current
+permission diagnostics. It is available to every authenticated read token,
+even when configuration editing is disabled. Use `tools/list` for exact schemas.
+The help never grants permissions or returns token secrets.
+
 ## Tools
 
-**Read:** `get_overview`, `list_problems`, `list_hosts`, `get_host`,
+**Read:** `get_help`, `get_overview`, `list_problems`, `list_hosts`, `get_host`,
 `list_services`, `get_service`, `list_groups`, `list_comments`,
 `list_downtimes`, `get_alert_history`, `get_notification_history`,
 `get_availability`, `get_config`, `get_performance`

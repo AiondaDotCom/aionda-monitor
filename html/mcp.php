@@ -38,8 +38,11 @@ If you have no token, ask the user to configure one in your MCP client.
 3. Discover available tools and their argument schemas:
 {"jsonrpc":"2.0","id":2,"method":"tools/list","params":{}}
 
-4. Start with a monitoring overview:
-{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"get_overview","arguments":{}}}
+4. Ask for online workflows, examples and your current permission diagnostics:
+{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"get_help","arguments":{"topic":"configuration"}}}
+
+5. Start with a monitoring overview:
+{"jsonrpc":"2.0","id":4,"method":"tools/call","params":{"name":"get_overview","arguments":{}}}
 
 Use tools/list as the authority for supported tools and arguments. Available
 operations depend on the token scopes and the associated Nagios user's rights.
