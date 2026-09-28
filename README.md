@@ -1,6 +1,6 @@
 # Aionda Monitor
 
-![Aionda Monitor](docs/branding/aionda-monitor-logo.svg)
+![Aionda Monitor](docs/branding/aionda-monitor-logo.svg?v=95e86887)
 
 **Straightforward infrastructure monitoring with a built-in MCP server for AI assistants.**
 
