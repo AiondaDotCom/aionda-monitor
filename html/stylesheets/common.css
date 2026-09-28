@@ -1,3 +1,4 @@
+/* Modified for Aionda Monitor by Aionda, 2026-09-28. See FORK.md. */
 /*
  * Nagios Core - common styles shared by all pages and CGIs.
  *
@@ -8,6 +9,7 @@
  */
 
 :root {
+	--brand-logo: url(../images/logos/aionda-monitor.svg);
 	--font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 	--font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 	--radius: 10px;
@@ -50,6 +52,7 @@
 
 @media (prefers-color-scheme: dark) {
 	:root:not(.light) {
+		--brand-logo: url(../images/logos/aionda-monitor-dark.svg);
 		--ok: #22c55e;
 		--warning: #f59e0b;
 		--unknown: #f97316;
@@ -76,6 +79,7 @@
 }
 
 :root.dark {
+	--brand-logo: url(../images/logos/aionda-monitor-dark.svg);
 	--ok: #22c55e;
 	--warning: #f59e0b;
 	--unknown: #f97316;
@@ -655,11 +659,9 @@ th img[src*="up.gif"]:hover, th img[src*="down.gif"]:hover { opacity: 1; }
 }
 
 .fulllogo {
-	mask: url(../images/logos/horizontal-nagios-full-logo.svg) no-repeat center / contain;
-	-webkit-mask: url(../images/logos/horizontal-nagios-full-logo.svg) no-repeat center / contain;
-	height: 30px;
-	width: 116px;
-	background-color: var(--text);
+	height: 38px;
+	width: 194px;
+	background: var(--brand-logo) no-repeat center / contain;
 }
 
 

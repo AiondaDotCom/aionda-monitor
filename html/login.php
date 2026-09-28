@@ -1,4 +1,5 @@
 <?php
+// Modified for Aionda Monitor by Aionda, 2026-09-28. See FORK.md.
 // Login page for form based authentication (Apache mod_auth_form).
 // See sample-config/httpd-formauth.conf for the matching Apache setup.
 include_once(dirname(__FILE__).'/includes/utils.inc.php');
@@ -37,7 +38,7 @@ header('Cache-Control: no-store');
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
 <meta name="color-scheme" content="<?= $theme ? $theme : 'light dark' ?>">
-<title>Login - Nagios Core</title>
+<title>Login - Aionda Monitor</title>
 <link rel="icon" href="images/favicon.ico">
 <script>
 	// The UI is a frameset, so an expired session would show this page inside
@@ -58,7 +59,7 @@ header('Cache-Control: no-store');
 		--input-bg: #fff;
 		--input-border: #d6dbe2;
 		--grid: rgba(15, 23, 42, 0.04);
-		--logo: #000;
+		--brand-logo: url(images/logos/aionda-monitor.svg);
 	}
 	@media (prefers-color-scheme: dark) {
 		:root:not(.light) {
@@ -70,7 +71,7 @@ header('Cache-Control: no-store');
 			--input-bg: rgba(0, 0, 0, 0.35);
 			--input-border: rgba(255, 255, 255, 0.12);
 			--grid: rgba(255, 255, 255, 0.035);
-			--logo: #fff;
+			--brand-logo: url(images/logos/aionda-monitor-dark.svg);
 		}
 	}
 	:root.dark {
@@ -82,7 +83,7 @@ header('Cache-Control: no-store');
 		--input-bg: rgba(0, 0, 0, 0.35);
 		--input-border: rgba(255, 255, 255, 0.12);
 		--grid: rgba(255, 255, 255, 0.035);
-		--logo: #fff;
+		--brand-logo: url(images/logos/aionda-monitor-dark.svg);
 	}
 	:root {
 		--ok: #3ecf5a;
@@ -137,10 +138,8 @@ header('Cache-Control: no-store');
 		opacity: .8;
 	}
 	.logo {
-		mask: url(images/logos/horizontal-nagios-full-logo.svg) no-repeat center / contain;
-		-webkit-mask: url(images/logos/horizontal-nagios-full-logo.svg) no-repeat center / contain;
-		background-color: var(--logo);
-		height: 42px;
+		background: var(--brand-logo) no-repeat center / contain;
+		height: 64px;
 		margin: 0 auto 14px;
 	}
 	.status {
@@ -304,10 +303,10 @@ header('Cache-Control: no-store');
 </head>
 <body>
 <main class="login">
-	<div class="logo" role="img" aria-label="Nagios"></div>
+	<div class="logo" role="img" aria-label="Aionda Monitor"></div>
 	<div class="status" aria-hidden="true"><span></span><span></span><span></span></div>
 	<h1>Welcome back</h1>
-	<p class="subtitle">Sign in to Nagios Core</p>
+	<p class="subtitle">Sign in to Aionda Monitor</p>
 
 	<?php if ($message !== '') { ?>
 	<div class="message <?= $message_class ?>" role="alert"><?= htmlspecialchars($message) ?></div>
@@ -334,7 +333,7 @@ header('Cache-Control: no-store');
 		<button type="submit" class="submit">Log in</button>
 	</form>
 
-	<p class="footer">Nagios&reg; Core&trade;</p>
+	<p class="footer">Aionda Monitor</p>
 </main>
 <script>
 	document.getElementById('toggle').addEventListener('click', function() {

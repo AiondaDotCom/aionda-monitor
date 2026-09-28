@@ -255,7 +255,7 @@ my $res;
 ($status, $res) = rpc($admin, 'initialize',
 	{ protocolVersion => '2025-06-18', capabilities => {}, clientInfo => { name => 't', version => '1' } });
 is($res->{result}{protocolVersion}, '2025-06-18', 'supported protocol version is echoed');
-is($res->{result}{serverInfo}{name}, 'nagios-core', 'server name');
+is($res->{result}{serverInfo}{name}, 'aionda-monitor', 'server name');
 ok($res->{result}{capabilities}{tools}, 'tools capability is announced');
 
 ($status, $res) = rpc($admin, 'initialize', { protocolVersion => '1999-01-01' });

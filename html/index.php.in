@@ -1,4 +1,5 @@
 <?php
+// Modified for Aionda Monitor by Aionda, 2026-09-28. See FORK.md.
 require_once(dirname(__FILE__).'/config.inc.php');
 require_once(dirname(__FILE__).'/includes/nav.inc.php');
 
@@ -43,8 +44,8 @@ if ($theme != 'dark' && $theme != 'light') {
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 	<meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
-	<title>Nagios: <?php echo htmlspecialchars($_SERVER['SERVER_NAME']); ?></title>
-	<link rel="shortcut icon" href="images/favicon.ico" type="image/ico">
+	<title>Aionda Monitor: <?php echo htmlspecialchars($_SERVER['SERVER_NAME']); ?></title>
+	<link rel="shortcut icon" href="images/logos/aionda-monitor-icon.svg" type="image/svg+xml">
 	<link rel="stylesheet" href="stylesheets/common.css?<?php echo $this_version; ?>">
 	<script>
 		// Apply a theme picked with the toggle before anything is painted.
@@ -202,7 +203,7 @@ if ($theme != 'dark' && $theme != 'light') {
 				text-overflow: ellipsis;
 				white-space: nowrap;
 			}
-			.topbar .fulllogo { width: 84px; height: 22px; flex: none; }
+			.topbar .fulllogo { width: 144px; height: 22px; flex: none; }
 			.topbar .nav-badge { margin: 0; }
 			.nav a:link, .nav a:visited { min-height: 42px; }
 			.nav ul ul a:link, .nav ul ul a:visited { min-height: 38px; }
@@ -217,16 +218,16 @@ if ($theme != 'dark' && $theme != 'light') {
 <div class="shell" id="shell">
 	<aside class="sidebar" id="sidebar">
 		<div class="brand">
-			<a href="main.php" target="main" aria-label="Nagios home"><div class="fulllogo"></div></a>
+			<a href="main.php" target="main" aria-label="Aionda Monitor home"><div class="fulllogo"></div></a>
 			<div class="status-dots" aria-hidden="true"><span></span><span></span><span></span></div>
 		</div>
 		<?php print_nav($cfg, 'main'); ?>
 		<div class="sidebar-footer">
 <?php $user = $_SERVER['REMOTE_USER'] ?? ''; if ($user !== '') { ?>
 			<div class="avatar" aria-hidden="true"><?php echo htmlspecialchars(substr($user, 0, 1)); ?></div>
-			<div class="who"><b><?php echo htmlspecialchars($user); ?></b>Nagios Core <?php echo $this_version; ?></div>
+			<div class="who"><b><?php echo htmlspecialchars($user); ?></b>Aionda Monitor <?php echo $this_version; ?></div>
 <?php } else { ?>
-			<div class="who"><b>Nagios Core</b><?php echo $this_version; ?></div>
+			<div class="who"><b>Aionda Monitor</b><?php echo $this_version; ?></div>
 <?php } ?>
 			<button type="button" class="icon-btn theme-toggle" id="theme-toggle" aria-label="Theme">
 				<svg class="auto" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></svg>
@@ -242,11 +243,11 @@ if ($theme != 'dark' && $theme != 'light') {
 			<button type="button" class="icon-btn" id="menu-btn" aria-label="Open menu" aria-controls="sidebar" aria-expanded="false">
 				<svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
 			</button>
-			<div class="title" id="page-title">Nagios</div>
+			<div class="title" id="page-title">Aionda Monitor</div>
 			<span class="nav-badge" id="badge-top" hidden></span>
 		</header>
 		<div class="loading-bar" aria-hidden="true"></div>
-		<iframe src="<?php echo $url; ?>" name="main" id="main-frame" title="Nagios content"></iframe>
+		<iframe src="<?php echo $url; ?>" name="main" id="main-frame" title="Aionda Monitor content"></iframe>
 	</main>
 </div>
 
@@ -357,8 +358,8 @@ if ($theme != 'dark' && $theme != 'light') {
 		themeFrame(doc);
 		wrapWideTables(doc);
 		markActive(win.location);
-		document.getElementById('page-title').textContent = (doc.title || 'Nagios').trim();
-		document.title = 'Nagios: ' + (doc.title || '').trim();
+		document.getElementById('page-title').textContent = (doc.title || 'Aionda Monitor').trim();
+		document.title = 'Aionda Monitor: ' + (doc.title || '').trim();
 		win.addEventListener('beforeunload', function() {
 			shell.classList.add('loading');
 			watchForNewDocument();

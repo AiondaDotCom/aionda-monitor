@@ -1,3 +1,4 @@
+/* Modified for Aionda Monitor by Aionda, 2026-09-28. See FORK.md. */
 /*****************************************************************************
  *
  * NAGIOS.C - Core Program Code For Nagios
@@ -325,12 +326,12 @@ int main(int argc, char **argv) {
 	init_shared_cfg_vars(1);
 
 	if(daemon_mode == FALSE) {
-		printf("\nNagios Core %s\n", PROGRAM_VERSION);
+		printf("\nAionda Monitor %s (derived from Nagios Core)\n", PROGRAM_VERSION);
 		printf("Copyright (c) 2009-present Nagios Core Development Team and Community Contributors\n");
 		printf("Copyright (c) 1999-2009 Ethan Galstad\n");
 		printf("Last Modified: %s\n", PROGRAM_MODIFICATION_DATE);
 		printf("License: GPL\n\n");
-		printf("Website: https://www.nagios.org\n");
+		printf("Website: https://github.com/AiondaDotCom/aionda-monitor\n");
 		}
 
 	/* just display the license */
@@ -649,7 +650,7 @@ int main(int argc, char **argv) {
 				}
 
 			/* this must be logged after we read config data, as user may have changed location of main log file */
-			logit(NSLOG_PROCESS_INFO, TRUE, "Nagios %s starting... (PID=%d)\n", PROGRAM_VERSION, (int)getpid());
+			logit(NSLOG_PROCESS_INFO, TRUE, "Aionda Monitor %s starting... (PID=%d)\n", PROGRAM_VERSION, (int)getpid());
 
 			/* log the local time - may be different than clock time due to timezone offset */
 			now = time(NULL);

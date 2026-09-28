@@ -2,7 +2,7 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-Nagios Core 4.x: a host/service monitoring daemon written in C, plus C CGI programs and a PHP/HTML web UI.
+Aionda Monitor, an independent GPLv2 fork of Nagios Core 4.x: a host/service monitoring daemon written in C, plus C CGI programs and a PHP/HTML web UI.
 
 ## Build
 

@@ -1,3 +1,4 @@
+/* Modified for Aionda Monitor by Aionda, 2026-09-28. See FORK.md. */
 /*****************************************************************************
  *
  * MCP.C - Model Context Protocol server for Nagios Core
@@ -47,7 +48,7 @@
 #include <strings.h>
 #include <dirent.h>
 
-#define MCP_SERVER_NAME        "nagios-core"
+#define MCP_SERVER_NAME        "aionda-monitor"
 #define MCP_MAX_BODY           (1024 * 1024)
 #define MCP_MAX_CGI_OUTPUT     (64 * 1024 * 1024)
 #define MCP_DEFAULT_LIMIT      100
@@ -3395,10 +3396,10 @@ static mj *rpc_initialize(const mj *params) {
 	mj_add(tl, "listChanged", mj_new_bool(0));
 	info = mj_add(res, "serverInfo", mj_new(MJ_OBJECT));
 	mj_add(info, "name", mj_new_str(MCP_SERVER_NAME));
-	mj_add(info, "title", mj_new_str("Nagios Core"));
+	mj_add(info, "title", mj_new_str("Aionda Monitor"));
 	mj_add(info, "version", mj_new_str(PROGRAM_VERSION));
 	mj_add(res, "instructions", mj_new_str(
-	           "Nagios Core monitors hosts (up/down/unreachable) and their services (ok/warning/critical/unknown). "
+	           "Aionda Monitor monitors hosts (up/down/unreachable) and their services (ok/warning/critical/unknown). "
 	           "A problem is 'handled' when it is acknowledged or in scheduled downtime. "
 	           "Use get_help for online workflows, examples and access diagnostics without reading source code. "
 	           "Use get_overview or list_problems first, then get_host/get_service for details and "

@@ -1,4 +1,4 @@
-name: Nagios Core Tests
+name: Aionda Monitor Tests
 
 on:
   push:

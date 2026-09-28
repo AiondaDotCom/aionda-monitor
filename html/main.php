@@ -1,4 +1,5 @@
 <?php
+// Modified for Aionda Monitor by Aionda, 2026-09-28. See FORK.md.
 include_once(dirname(__FILE__).'/includes/utils.inc.php');
 
 $this_version = '4.5.14';
@@ -19,29 +20,13 @@ $c = htmlspecialchars($cfg['cgi_base_url']);
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="ROBOTS" content="NOINDEX, NOFOLLOW" />
-<title>Nagios Core</title>
+<title>Aionda Monitor</title>
 <link rel="stylesheet" type="text/css" href="stylesheets/common.css?<?php echo $this_version; ?>" />
-<link rel="stylesheet" type="text/css" href="stylesheets/nag_funcs.css?<?php echo $this_version; ?>" />
 <script type="text/javascript" src="js/jquery-3.7.1.min.js"></script>
 <script type="text/javascript" src="js/nag_funcs.js"></script>
 
 <script type='text/javascript'>
-	var cookie;
-	<?php if ($cfg["enable_page_tour"]) { ?>
-		var vbox;
-		var vBoxId = "main";
-		var vboxText = "<a href=https://www.nagios.com/tours target=_blank> " +
-						"Click here to watch the entire Nagios Core 4 Tour!</a>";
-	<?php } ?>
 	$(document).ready(function() {
-		var user = "<?php echo htmlspecialchars($_SERVER['REMOTE_USER'] ?? ''); ?>";
-
-		<?php if ($cfg["enable_page_tour"]) { ?>
-			vBoxId += ";" + user;
-			vbox = new vidbox({pos:'lr',vidurl:'https://www.youtube.com/embed/2hVBAet-XpY',
-								text:vboxText,vidid:vBoxId});
-		<?php } ?>
-
 		getCoreStatus();
 		getCounts();
 		setInterval(function() { getCoreStatus(); getCounts(); }, 60000);
@@ -214,25 +199,6 @@ $c = htmlspecialchars($cfg['cgi_base_url']);
 	.quick .ic { display: grid; place-items: center; flex: none; width: 34px; height: 34px; border-radius: 9px; color: var(--accent); background: color-mix(in srgb, var(--accent) 13%, transparent); }
 	.quick small { display: block; font-weight: 400; font-size: 12px; color: var(--muted); }
 
-	/* promo */
-	#mainsplash {
-		display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 32px; align-items: center;
-		max-width: none; margin: 0; padding: 24px;
-		background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
-	}
-	#mainsplash img { display: block; width: 100%; border-radius: 10px; border: 1px solid var(--border); }
-	#splashtext { display: flex; flex-direction: column; gap: 12px; font-size: 14px; line-height: 1.55; color: var(--muted); }
-	#splashtexttitle { font-size: 22px; line-height: 1.25; font-weight: 700; color: var(--text); letter-spacing: -0.01em; }
-	.eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
-	#splashbuttons { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin-top: 6px; }
-	#splashlearnmore:link, #splashlearnmore:visited {
-		display: inline-block; padding: 10px 16px; border-radius: 8px; font-weight: 600;
-		color: var(--accent-fg); background: var(--accent);
-	}
-	#splashlearnmore:hover { filter: brightness(1.08); }
-	#splashnewsletter:link, #splashnewsletter:visited { color: var(--muted); text-decoration: none; }
-	#splashnewsletter:hover { color: var(--text); }
-
 	/* footer */
 	#splashpage #mainfooter {
 		width: auto; margin: 8px 0 0; padding: 20px 0 0;
@@ -249,7 +215,6 @@ $c = htmlspecialchars($cfg['cgi_base_url']);
 
 	@media (max-width: 1000px) {
 		.quick { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-		#mainsplash { grid-template-columns: 1fr; }
 	}
 	@media (max-width: 640px) {
 		body#splashpage { padding: 20px 14px 32px; }
@@ -260,7 +225,6 @@ $c = htmlspecialchars($cfg['cgi_base_url']);
 		.cards { grid-template-columns: 1fr; }
 		.quick { gap: 10px; }
 		.quick a:link, .quick a:visited { flex-direction: column; align-items: flex-start; gap: 10px; padding: 14px; }
-		#mainsplash { padding: 16px; gap: 18px; }
 		#splashpage #mainfooter { flex-direction: column; gap: 10px; }
 	}
 	@media (prefers-reduced-motion: reduce) {
@@ -277,7 +241,7 @@ $c = htmlspecialchars($cfg['cgi_base_url']);
 
 <div class="hero">
 	<div>
-		<h1>Nagios Core<span class="chip">v<?php echo $this_version; ?></span></h1>
+		<h1>Aionda Monitor<span class="chip">v<?php echo $this_version; ?></span></h1>
 		<p>Released August 05, 2026</p>
 	</div>
 	<div class="hero-actions">
@@ -300,7 +264,7 @@ $c = htmlspecialchars($cfg['cgi_base_url']);
 	} else if ($updateinfo['update_available'] && $this_version < $updateinfo['update_version']) {
 ?>
 		<div class="updateavailable">
-			<div class="updatemessage">A new version of Nagios Core is available!</div>
+			<div class="updatemessage">A new upstream Nagios Core version is available.</div>
 			<div class="submessage">Visit <a href="https://www.nagios.org/download/" target="_blank">nagios.org</a> to download Nagios <?php echo htmlentities($updateinfo['update_version'], ENT_QUOTES, 'UTF-8');?>.</div>
 		</div>
 <?php
@@ -345,29 +309,14 @@ $c = htmlspecialchars($cfg['cgi_base_url']);
 	<a href="<?= $c ?>/showlog.cgi"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v16H5z"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></span><span>Event Log<small>Latest events</small></span></a>
 </div>
 
-<div id="mainsplash">
-	<a href="https://www.nagios.org/?utm_campaign=csp&utm_source=nagioscore&utm_medium=splash_thumbnail&utm_content=<?php echo $this_version; ?>" target="_blank"><img src="images/csp-dashboard.avif" alt="Nagios Core Services Platform dashboard" loading="lazy" /></a>
-	<div id="splashtext">
-		<div class="eyebrow">From Nagios</div>
-		<div id="splashtexttitle">Meet Nagios Core Services Platform</div>
-		<div>The next generation of Open Source powered monitoring with advanced dashboards, monitoring wizards, and much more!</div>
-		<div id="splashbuttons">
-			<a id="splashlearnmore" href="https://www.nagios.org/?utm_campaign=csp&utm_source=nagioscore&utm_medium=splash_button&utm_content=<?php echo $this_version; ?>#csp-section-home" target="_blank">Learn More</a>
-			<a id="splashnewsletter" href="https://www.nagios.org/newsletter?utm_campaign=csp&utm_source=nagioscore&utm_medium=splash_newsletter_link&utm_content=<?php echo $this_version; ?>" target="_blank">Newsletter Sign-Up</a>
-		</div>
-	</div>
-</div>
-
 <div id="mainfooter">
 	<div id="maincopy">
 		Copyright &copy; 2010-<?php echo $this_year; ?> Nagios Core Development Team and Community Contributors. Copyright &copy; 1999-2009 Ethan Galstad. See the THANKS file for more information on contributors.
 	</div>
 	<div CLASS="disclaimer">
-		Nagios Core is licensed under the GNU General Public License and is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY, AND FITNESS FOR A PARTICULAR PURPOSE.  Nagios, Nagios Core and the Nagios logo are trademarks, servicemarks, registered trademarks or registered servicemarks owned by Nagios Enterprises, LLC.  Use of the Nagios marks is governed by the <A href="https://www.nagios.com/legal/trademarks/">trademark use restrictions</a>.
+		Aionda Monitor is derived from Nagios Core and is licensed under the GNU General Public License and is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE WARRANTY OF DESIGN, MERCHANTABILITY, AND FITNESS FOR A PARTICULAR PURPOSE.  Nagios, Nagios Core and the Nagios logo are trademarks, servicemarks, registered trademarks or registered servicemarks owned by Nagios Enterprises, LLC.  Use of the Nagios marks is governed by the <A href="https://www.nagios.com/legal/trademarks/">trademark use restrictions</a>.
 	</div>
-	<div class="logos">
-		<a href="https://www.nagios.org/" target="_blank"><div class="nlogo nagioslogo"></div></a>
-	</div>
+	<p>Aionda Monitor is an independent fork of Nagios Core, maintained by Aionda. Not affiliated with or endorsed by Nagios Enterprises.</p>
 </div>
 
 </div>

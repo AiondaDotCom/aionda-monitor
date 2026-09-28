@@ -1,3 +1,4 @@
+/* Modified for Aionda Monitor by Aionda, 2026-09-28. See FORK.md. */
 /***********************************************************************
  *
  * CGIUTILS.C - Common utilities for Nagios CGIs
@@ -1662,7 +1663,7 @@ void display_info_table(const char *title, int refresh, authdata *current_authda
 	if(refresh == TRUE)
 		printf("Updated every %d seconds<br>\n", refresh_rate);
 
-	printf("Nagios&reg; Core&trade; %s - <A HREF='https://www.nagios.org' TARGET='_new' REL='nofollow' CLASS='homepageURL'>www.nagios.org</A><BR>\n", PROGRAM_VERSION);
+	printf("Aionda Monitor %s - <A HREF='https://github.com/AiondaDotCom/aionda-monitor' TARGET='_new' REL='nofollow' CLASS='homepageURL'>Project</A><BR>\n", PROGRAM_VERSION);
 
 	if(current_authdata != NULL)
 		printf("Logged in as <i>%s</i><BR>\n", (!strcmp(current_authdata->username, "")) ? "?" : current_authdata->username);

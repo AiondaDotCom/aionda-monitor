@@ -1,4 +1,5 @@
 <?php
+// Modified for Aionda Monitor by Aionda, 2026-09-28. See FORK.md.
 // Standalone navigation. The index.php shell renders the same menu inline;
 // this page is kept for old bookmarks and custom framesets.
 include_once(dirname(__FILE__).'/includes/utils.inc.php');
@@ -18,13 +19,13 @@ if ($theme != 'dark' && $theme != 'light') {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
-<title>Nagios Core</title>
+<title>Aionda Monitor</title>
 <link href="stylesheets/common.css?<?php echo $this_version; ?>" type="text/css" rel="stylesheet">
 </head>
 <body class="navbar">
 
 <div class="navbarlogo">
-	<a href="https://www.nagios.org" target="_blank"><div class="fulllogo nagioslogo"></div></a>
+	<a href="https://github.com/AiondaDotCom/aionda-monitor" target="_blank"><div class="fulllogo"></div></a>
 </div>
 
 <?php print_nav($cfg, $link_target); ?>
