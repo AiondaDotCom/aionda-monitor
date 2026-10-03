@@ -344,7 +344,7 @@ option_help archive_json_help[] = {
 		{ "alertcount", "alertlist", "notificationcount", "notificationlist", 
 				NULL },
 		NULL,
-		"Limits the hosts or services returned to those whose host parent is specified. A value of 'none' returns all hosts or services reachable directly by the Nagios core host.",
+		"Limits the hosts or services returned to those whose host parent is specified. A value of 'none' returns all hosts or services reachable directly by the Aionda Monitor host.",
 		parent_host_extras
 		},
 	{ 
@@ -476,12 +476,12 @@ option_help archive_json_help[] = {
 		},
 	{ 
 		"assumestatesduringnagiosdowntime",
-		"Assume States During Nagios Downtime",
+		"Assume States During Aionda Monitor Downtime",
 		"boolean",
 		{ NULL },
 		{ "availability", NULL },
 		NULL,
-		"Assume states are retained during Nagios downtime.",
+		"Assume states are retained during Aionda Monitor downtime.",
 		NULL
 		},
 	{ 

@@ -36,7 +36,6 @@ static nagios_macros *mac;
 extern char             nagios_process_info[MAX_INPUT_BUFFER];
 extern int              nagios_process_state;
 extern int              refresh_rate;
-extern int 				enable_page_tour;
 
 extern int              buffer_stats[1][3];
 extern int              program_stats[MAX_CHECK_STATS_TYPES][3];
@@ -164,7 +163,7 @@ int main(void) {
 		else if(display_type == DISPLAY_SCHEDULING_QUEUE)
 			snprintf(temp_buffer, sizeof(temp_buffer) - 1, "Check Scheduling Queue");
 		else
-			snprintf(temp_buffer, sizeof(temp_buffer) - 1, "Nagios Process Information");
+			snprintf(temp_buffer, sizeof(temp_buffer) - 1, "Aionda Monitor Process Information");
 		temp_buffer[sizeof(temp_buffer) - 1] = '\x0';
 		display_info_table(temp_buffer, TRUE, &current_authdata);
 
@@ -523,7 +522,6 @@ int main(void) {
 
 void document_header(int use_stylesheet) {
 	char date_time[MAX_DATETIME_LENGTH];
-	char *vidurl = NULL;
 	time_t current_time;
 	time_t expire_time;
 
@@ -555,27 +553,6 @@ void document_header(int use_stylesheet) {
 		printf("<LINK REL='stylesheet' TYPE='text/css' HREF='%s%s'>", url_stylesheets_path, COMMON_CSS);
 		printf("<LINK REL='stylesheet' TYPE='text/css' HREF='%s%s'>", url_stylesheets_path, EXTINFO_CSS);
 		printf("<LINK REL='stylesheet' TYPE='text/css' HREF='%s%s'>\n", url_stylesheets_path, NAGFUNCS_CSS);
-		}
-
-	if (display_type == DISPLAY_HOST_INFO)
-		vidurl = "https://www.youtube.com/embed/n3QEAf-MxY4";
-	else if(display_type == DISPLAY_SERVICE_INFO)
-		vidurl = "https://www.youtube.com/embed/f_knwQOS6FI";
-
-	if (enable_page_tour == TRUE && vidurl) {
-		printf("<script type='text/javascript' src='%s%s'></script>\n", url_js_path, JQUERY_JS);
-		printf("<script type='text/javascript' src='%s%s'></script>\n", url_js_path, NAGFUNCS_JS);
-		printf("<script type='text/javascript'>\n");
-		printf("var vbox, vBoxId='extinfo%d', vboxText = "
-				"'<a href=https://www.nagios.com/tours target=_blank>"
-				"Click here to watch the entire Nagios Core 4 Tour!</a>';\n",
-				display_type);
-		printf("$(document).ready(function() {\n"
-				"var user = '%s';\nvBoxId += ';' + user;\n",
-				current_authdata.username);
-		printf("vbox = new vidbox({pos:'lr',vidurl:'%s',text:vboxText,"
-				"vidid:vBoxId});\n", vidurl);
-		printf("});\n</script>\n");
 		}
 
 	printf("</head>\n");
@@ -793,7 +770,7 @@ void show_process_info(void) {
 	printf("<TR><TD CLASS='dataVar'>Last Log File Rotation:</TD><TD CLASS='dataVal'>%s</TD></TR>\n", (last_log_rotation == (time_t)0) ? "N/A" : date_time);
 
 	/* PID */
-	printf("<TR><TD CLASS='dataVar'>Nagios PID</TD><TD CLASS='dataVal'>%d</TD></TR>\n", nagios_pid);
+	printf("<TR><TD CLASS='dataVar'>Aionda Monitor PID</TD><TD CLASS='dataVal'>%d</TD></TR>\n", nagios_pid);
 
 	/* notifications enabled */
 	printf("<TR><TD CLASS='dataVar'>Notifications Enabled?</TD><TD CLASS='dataVal'><DIV CLASS='notifications%s'>&nbsp;&nbsp;%s&nbsp;&nbsp;</DIV></TD></TR>\n", (enable_notifications == TRUE) ? "ENABLED" : "DISABLED", (enable_notifications == TRUE) ? "YES" : "NO");
@@ -841,8 +818,8 @@ void show_process_info(void) {
 		printf("<TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0 CLASS='command'>\n");
 
 #ifndef DUMMY_INSTALL
-		printf("<TR CLASS='command'><TD><img src='%s%s' border=0 ALT='Shutdown the Nagios Process' TITLE='Shutdown the Nagios Process'></td><td CLASS='command'><a href='%s?cmd_typ=%d'>Shutdown the Nagios process</a></td></tr>\n", url_images_path, STOP_ICON, COMMAND_CGI, CMD_SHUTDOWN_PROCESS);
-		printf("<TR CLASS='command'><TD><img src='%s%s' border=0 ALT='Restart the Nagios Process' TITLE='Restart the Nagios Process'></td><td CLASS='command'><a href='%s?cmd_typ=%d'>Restart the Nagios process</a></td></tr>\n", url_images_path, RESTART_ICON, COMMAND_CGI, CMD_RESTART_PROCESS);
+		printf("<TR CLASS='command'><TD><img src='%s%s' border=0 ALT='Shutdown the Aionda Monitor Process' TITLE='Shutdown the Aionda Monitor Process'></td><td CLASS='command'><a href='%s?cmd_typ=%d'>Shutdown the Aionda Monitor process</a></td></tr>\n", url_images_path, STOP_ICON, COMMAND_CGI, CMD_SHUTDOWN_PROCESS);
+		printf("<TR CLASS='command'><TD><img src='%s%s' border=0 ALT='Restart the Aionda Monitor Process' TITLE='Restart the Aionda Monitor Process'></td><td CLASS='command'><a href='%s?cmd_typ=%d'>Restart the Aionda Monitor process</a></td></tr>\n", url_images_path, RESTART_ICON, COMMAND_CGI, CMD_RESTART_PROCESS);
 #endif
 
 		if(enable_notifications == TRUE)
@@ -898,7 +875,7 @@ void show_process_info(void) {
 		printf("</TABLE>\n");
 		}
 	else {
-		printf("<DIV ALIGN=CENTER CLASS='infoMessage'>It appears as though Nagios is not running, so commands are temporarily unavailable...\n");
+		printf("<DIV ALIGN=CENTER CLASS='infoMessage'>It appears as though Aionda Monitor is not running, so commands are temporarily unavailable...\n");
 		printf("</DIV>\n");
 		}
 
@@ -1192,8 +1169,8 @@ void show_host_info(void) {
 		printf("<DIV ALIGN=CENTER CLASS='infoMessage'>Your account does not have permissions to execute commands.<br>\n");
 		}
 	else {
-		printf("<DIV ALIGN=CENTER CLASS='infoMessage'>It appears as though Nagios is not running, so commands are temporarily unavailable...<br>\n");
-		printf("Click <a href='%s?type=%d'>here</a> to view Nagios process information</DIV>\n", EXTINFO_CGI, DISPLAY_PROCESS_INFO);
+		printf("<DIV ALIGN=CENTER CLASS='infoMessage'>It appears as though Aionda Monitor is not running, so commands are temporarily unavailable...<br>\n");
+		printf("Click <a href='%s?type=%d'>here</a> to view Aionda Monitor process information</DIV>\n", EXTINFO_CGI, DISPLAY_PROCESS_INFO);
 		}
 	printf("</TD></TR></TABLE>\n");
 
@@ -1535,8 +1512,8 @@ void show_service_info(void) {
 		printf("<DIV ALIGN=CENTER CLASS='infoMessage'>Your account does not have permissions to execute commands.<br>\n");
 		}
 	else {
-		printf("<DIV CLASS='infoMessage'>It appears as though Nagios is not running, so commands are temporarily unavailable...<br>\n");
-		printf("Click <a href='%s?type=%d'>here</a> to view Nagios process information</DIV>\n", EXTINFO_CGI, DISPLAY_PROCESS_INFO);
+		printf("<DIV CLASS='infoMessage'>It appears as though Aionda Monitor is not running, so commands are temporarily unavailable...<br>\n");
+		printf("Click <a href='%s?type=%d'>here</a> to view Aionda Monitor process information</DIV>\n", EXTINFO_CGI, DISPLAY_PROCESS_INFO);
 		}
 
 	printf("</td></tr>\n");
@@ -1636,8 +1613,8 @@ void show_hostgroup_info(void) {
 		printf("<DIV ALIGN=CENTER CLASS='infoMessage'>Your account does not have permissions to execute commands.<br>\n");
 		}
 	else {
-		printf("<DIV CLASS='infoMessage'>It appears as though Nagios is not running, so commands are temporarily unavailable...<br>\n");
-		printf("Click <a href='%s?type=%d'>here</a> to view Nagios process information</DIV>\n", EXTINFO_CGI, DISPLAY_PROCESS_INFO);
+		printf("<DIV CLASS='infoMessage'>It appears as though Aionda Monitor is not running, so commands are temporarily unavailable...<br>\n");
+		printf("Click <a href='%s?type=%d'>here</a> to view Aionda Monitor process information</DIV>\n", EXTINFO_CGI, DISPLAY_PROCESS_INFO);
 		}
 
 	printf("</TD></TR>\n");
@@ -1729,8 +1706,8 @@ void show_servicegroup_info() {
 		printf("</TABLE>\n");
 		}
 	else {
-		printf("<DIV CLASS='infoMessage'>It appears as though Nagios is not running, so commands are temporarily unavailable...<br>\n");
-		printf("Click <a href='%s?type=%d'>here</a> to view Nagios process information</DIV>\n", EXTINFO_CGI, DISPLAY_PROCESS_INFO);
+		printf("<DIV CLASS='infoMessage'>It appears as though Aionda Monitor is not running, so commands are temporarily unavailable...<br>\n");
+		printf("Click <a href='%s?type=%d'>here</a> to view Aionda Monitor process information</DIV>\n", EXTINFO_CGI, DISPLAY_PROCESS_INFO);
 		}
 
 	printf("</TD></TR>\n");

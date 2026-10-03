@@ -235,7 +235,7 @@ option_help object_json_help[] = {
 		{ NULL },
 		{ "hostcount", "hostlist", "servicecount", "servicelist", NULL },
 		NULL,
-		"Limits the hosts or services returned to those whose host parent is specified. A value of 'none' returns all hosts or services reachable directly by the Nagios core host.",
+		"Limits the hosts or services returned to those whose host parent is specified. A value of 'none' returns all hosts or services reachable directly by the Aionda Monitor host.",
 		parent_host_extras
 		},
 	{ 

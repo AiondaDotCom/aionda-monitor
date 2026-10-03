@@ -179,10 +179,6 @@ int xsddefault_save_status_data(void) {
 	fprintf(fp, "info {\n");
 	fprintf(fp, "\tcreated=%llu\n", (unsigned long long)current_time);
 	fprintf(fp, "\tversion=%s\n", PROGRAM_VERSION);
-	fprintf(fp, "\tlast_update_check=%llu\n", (unsigned long long)last_update_check);
-	fprintf(fp, "\tupdate_available=%d\n", update_available);
-	fprintf(fp, "\tlast_version=%s\n", (last_program_version == NULL) ? "" : last_program_version);
-	fprintf(fp, "\tnew_version=%s\n", (new_program_version == NULL) ? "" : new_program_version);
 	fprintf(fp, "\t}\n\n");
 
 	/* save program status data */

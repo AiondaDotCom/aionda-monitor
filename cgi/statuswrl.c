@@ -788,7 +788,7 @@ void write_global_vrml_data(void) {
 	/* write world information */
 	printf("\n");
 	printf("WorldInfo{\n");
-	printf("title \"Nagios 3-D Network Status View\"\n");
+	printf("title \"Aionda Monitor 3-D Network Status View\"\n");
 	printf("info [\"Copyright (c) 1999-2002 Ethan Galstad\"\n");
 	printf("\"egalstad@nagios.org\"]\n");
 	printf("}\n");
@@ -1133,7 +1133,7 @@ void draw_process_icon(void) {
 	printf("}\n");
 
 	printf("]\n");
-	printf("description \"View Nagios Process Information\"\n");
+	printf("description \"View Aionda Monitor Process Information\"\n");
 	printf("url \"%s?type=%d\"\n", EXTINFO_CGI, DISPLAY_PROCESS_INFO);
 	printf("}\n");
 

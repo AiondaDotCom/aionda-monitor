@@ -66,7 +66,6 @@ extern servicestatus *servicestatus_list;
 
 extern int nagios_process_state;
 
-extern int enable_page_tour;
 
 
 
@@ -294,7 +293,7 @@ void document_header(int use_stylesheet) {
 	printf("<HEAD>\n");
 	printf("<link rel=\"shortcut icon\" href=\"%sfavicon.ico\" type=\"image/ico\">\n", url_images_path);
 	printf("<TITLE>\n");
-	printf("Nagios Tactical Monitoring Overview\n");
+	printf("Aionda Monitor Tactical Monitoring Overview\n");
 	printf("</TITLE>\n");
 
 	if(use_stylesheet == TRUE) {
@@ -304,21 +303,6 @@ void document_header(int use_stylesheet) {
 		}
 
 	printf("<script type='text/javascript' src='%s%s'></script>\n", url_js_path, JQUERY_JS);
-
-
-	if (enable_page_tour == TRUE) {
-		printf("<script type='text/javascript' src='%s%s'></script>\n", url_js_path, NAGFUNCS_JS);
-
-		printf("<script type='text/javascript'>\nvar vbox, vBoxId='tac', "
-				"vboxText = '<a href=https://www.nagios.com/tours target=_blank>"
-				"Click here to watch the entire Nagios Core 4 Tour!</a>';\n");
-		printf("$(document).ready(function() {\n"
-				"var user = '%s';\nvBoxId += ';' + user;", current_authdata.username);
-		printf("vbox = new vidbox({pos:'lr',"
-				"vidurl:'https://www.youtube.com/embed/l20YRDhbOfA',text:vboxText,"
-				"vidid:vBoxId});");
-		printf("\n});\n</script>\n");
-		}
 
 
 

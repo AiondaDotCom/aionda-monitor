@@ -5,11 +5,11 @@ After=network.target local-fs.target
 
 [Service]
 Type=forking
-ExecStartPre=@bindir@/nagios -v @sysconfdir@/nagios.cfg
-ExecStart=@bindir@/nagios -d @sysconfdir@/nagios.cfg
+ExecStartPre=@bindir@/nagios -v @sysconfdir@/monitor.cfg
+ExecStart=@bindir@/nagios -d @sysconfdir@/monitor.cfg
 ExecStop=@BIN_KILL@ -s TERM ${MAINPID}
 ExecStopPost=@BIN_RM@ -f @localstatedir@/rw/nagios.cmd
-ExecReload=@bindir@/nagios -v @sysconfdir@/nagios.cfg
+ExecReload=@bindir@/nagios -v @sysconfdir@/monitor.cfg
 ExecReload=@BIN_KILL@ -s HUP ${MAINPID}
 
 [Install]

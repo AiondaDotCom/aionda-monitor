@@ -955,7 +955,7 @@ if test ! -d "sample-config/template-object"; then
 	mkdir -p "sample-config/template-object"
 fi
 
-perl subst sample-config/nagios.cfg
+perl subst sample-config/monitor.cfg
 perl subst sample-config/cgi.cfg
 perl subst sample-config/resource.cfg
 perl subst sample-config/httpd.conf

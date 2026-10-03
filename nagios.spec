@@ -170,7 +170,7 @@ export PATH=%{_bindir}:/bin:\$PATH
         s|log_file.*|log_file=%{logdir}/nagios.log|;
         s|log_archive_path=.*|log_archive_path=%{logdir}/archives|;
         s|debug_file=.*|debug_file=%{logdir}/nagios.debug|;
-   ' %{buildroot}%{_sysconfdir}/nagios/nagios.cfg
+   ' %{buildroot}%{_sysconfdir}/nagios/monitor.cfg
 
 
 ### make logdirs

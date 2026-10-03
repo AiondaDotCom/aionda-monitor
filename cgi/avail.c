@@ -1060,7 +1060,7 @@ void document_header(int use_stylesheet) {
 	printf("<head>\n");
 	printf("<link rel=\"shortcut icon\" href=\"%sfavicon.ico\" type=\"image/ico\">\n", url_images_path);
 	printf("<title>\n");
-	printf("Nagios Availability\n");
+	printf("Aionda Monitor Availability\n");
 	printf("</title>\n");
 
 	if (use_stylesheet == TRUE) {
@@ -4390,7 +4390,7 @@ void display_host_availability(void)
 			/* indeterminate times */
 			printf("<tr CLASS='dataOdd'>");
 			printf("<td CLASS='dataOdd' rowspan=3>Undetermined</td>");
-			printf("<td CLASS='dataOdd'>Nagios Not Running</td>");
+			printf("<td CLASS='dataOdd'>Aionda Monitor Not Running</td>");
 			printf("<td CLASS='dataOdd'>%s</td>", time_indeterminate_notrunning_string);
 			printf("<td CLASS='dataOdd'>%2.3f%%</td>", percent_time_indeterminate_notrunning);
 			printf("<td CLASS='dataOdd'></td></tr>\n");
@@ -5010,7 +5010,7 @@ void display_service_availability(void)
 
 			printf("<tr CLASS='dataEven'><td CLASS='dataEven' rowspan=3>Undetermined</td>");
 
-			printf("<td CLASS='dataEven'>Nagios Not Running</td>");
+			printf("<td CLASS='dataEven'>Aionda Monitor Not Running</td>");
 			printf("<td CLASS='dataEven'>%s</td>", time_indeterminate_notrunning_string);
 			printf("<td CLASS='dataEven'>%2.3f%%</td>", percent_time_indeterminate_notrunning);
 			printf("<td CLASS='dataEven'></td></tr>\n");

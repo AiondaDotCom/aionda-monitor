@@ -40,7 +40,7 @@
 
 # Our install-time configuration.
 NagiosBin=@bindir@/@nagios_name@
-NagiosCfgFile=@sysconfdir@/nagios.cfg
+NagiosCfgFile=@sysconfdir@/monitor.cfg
 NagiosCfgtestFile=@localstatedir@/nagios.configtest
 NagiosStatusFile=@localstatedir@/status.dat
 NagiosRetentionFile=@localstatedir@/retention.dat
@@ -166,7 +166,7 @@ if [ ! -f $NagiosBin ]; then
     exit 1
 fi
 
-# Check that nagios.cfg exists.
+# Check that monitor.cfg exists.
 if [ ! -f $NagiosCfgFile ]; then
     echo "Configuration file $NagiosCfgFile not found. Exiting."
     exit 1

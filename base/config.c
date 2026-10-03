@@ -1099,11 +1099,9 @@ int read_main_config_file(char *main_config_file) {
 		else if(!strcmp(variable, "external_command_buffer_slots"))
 			obsoleted_warning(variable, "All commands are always processed upon arrival");
 
-		else if(!strcmp(variable, "check_for_updates"))
-			check_for_updates = (atoi(value) > 0) ? TRUE : FALSE;
-
-		else if(!strcmp(variable, "bare_update_check"))
-			bare_update_check = (atoi(value) > 0) ? TRUE : FALSE;
+		/*** update checks against the upstream servers were removed */
+		else if(!strcmp(variable, "check_for_updates") || !strcmp(variable, "bare_update_check"))
+			obsoleted_warning(variable, "Update checks were removed, the option has no effect.");
 
 		/* BEGIN status data variables */
 		else if(!strcmp(variable, "status_file"))
@@ -1256,7 +1254,7 @@ int read_main_config_file(char *main_config_file) {
 		temp_file = nspath_absolute("nagios.tmp", temp_path);
 		}
 	else if (*temp_file == '.') {
-		/* temp_file is relative. Make it nagios.cfg-relative */
+		/* temp_file is relative. Make it monitor.cfg-relative */
 		char *foo = temp_file;
 		temp_file = nspath_absolute(temp_file, config_file_dir);
 		free(foo);

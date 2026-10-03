@@ -1195,7 +1195,7 @@ void document_header(int use_stylesheet) {
 		printf("<head>\n");
 		printf("<link rel=\"shortcut icon\" href=\"%sfavicon.ico\" type=\"image/ico\">\n", url_images_path);
 		printf("<title>\n");
-		printf("Nagios Trends\n");
+		printf("Aionda Monitor Trends\n");
 		printf("</title>\n");
 
 		if(use_stylesheet == TRUE) {

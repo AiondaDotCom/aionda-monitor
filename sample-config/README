@@ -16,7 +16,7 @@ CONTENTS:
 
 cgi.cfg           - This is a sample CGI config file
 
-nagios.cfg        - This is a sample main config file
+monitor.cfg       - This is a sample main config file
 
 resource.cfg      - This is a sample resource config file, used for defining
 		    custom macros, storing sensitive data, etc.

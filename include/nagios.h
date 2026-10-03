@@ -130,13 +130,6 @@ extern int auto_reschedule_checks;
 
 extern int additional_freshness_latency;
 
-extern int check_for_updates;
-extern int bare_update_check;
-extern time_t last_update_check;
-extern unsigned long update_uid;
-extern int update_available;
-extern char *last_program_version;
-extern char *new_program_version;
 
 extern int use_aggressive_host_checking;
 extern time_t cached_host_check_horizon;
@@ -370,7 +363,7 @@ extern struct load_control loadctl;
 #define EVENT_HFRESHNESS_CHECK          13  /* checks host result "freshness" */
 #define EVENT_RESCHEDULE_CHECKS         14  /* adjust scheduling of host and service checks */
 #define EVENT_EXPIRE_COMMENT            15  /* removes expired comments */
-#define EVENT_CHECK_PROGRAM_UPDATE      16  /* checks for new version of Nagios */
+#define EVENT_CHECK_PROGRAM_UPDATE      16  /* unused, update checks were removed */
 #define EVENT_SCHEDULED_DOWNTIME_START  17  /* start scheduled host or service downtime */
 #define EVENT_SCHEDULED_DOWNTIME_END    18  /* end scheduled host or service downtime */
 #define EVENT_SLEEP                     98  /* asynchronous sleep event that occurs when event queues are empty */
@@ -484,7 +477,7 @@ extern int qh_register_handler(const char *name, const char *description, unsign
 extern const char *qh_strerror(int code);
 
 /**** Configuration Functions ****/
-int read_main_config_file(char *);                     		/* reads the main config file (nagios.cfg) */
+int read_main_config_file(char *);                     		/* reads the main config file (monitor.cfg) */
 int read_resource_file(char *);					/* processes macros in resource file */
 int read_all_object_data(char *);				/* reads all object config data */
 
@@ -682,8 +675,6 @@ int dbuf_init(dbuf *, int);
 int dbuf_free(dbuf *);
 int dbuf_strcat(dbuf *, const char *);
 int set_environment_var(char *, char *, int);           /* sets/clears and environment variable */
-int check_for_nagios_updates(int, int);                 /* checks to see if new version of Nagios are available */
-int query_update_api(void);                             /* checks to see if new version of Nagios are available */
 
 
 /**** External Command Functions ****/

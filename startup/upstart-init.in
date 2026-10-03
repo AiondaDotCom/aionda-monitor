@@ -19,7 +19,7 @@ expect fork
 respawn
 
 pre-start script
-    @bindir@/@nagios_name@ -vp @sysconfdir@/nagios.cfg
+    @bindir@/@nagios_name@ -vp @sysconfdir@/monitor.cfg
 end script
 
-exec @bindir@/@nagios_name@ -d @sysconfdir@/nagios.cfg
+exec @bindir@/@nagios_name@ -d @sysconfdir@/monitor.cfg

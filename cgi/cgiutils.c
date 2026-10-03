@@ -1877,14 +1877,14 @@ void include_ssi_files(const char *cgi_name, int type) {
 	cgi_ssi_file[sizeof(cgi_ssi_file) - 1] = '\x0';
 
 	if(type == SSI_HEADER) {
-		printf("\n<!-- Produced by Nagios (https://www.nagios.org).  Copyright (c) 1999-2007 Ethan Galstad. -->\n");
+		printf("\n<!-- Produced by Aionda Monitor (https://github.com/AiondaDotCom/aionda-monitor). -->\n");
 		include_ssi_file(common_ssi_file);
 		include_ssi_file(cgi_ssi_file);
 		}
 	else {
 		include_ssi_file(cgi_ssi_file);
 		include_ssi_file(common_ssi_file);
-		printf("\n<!-- Produced by Nagios (https://www.nagios.org).  Copyright (c) 1999-2007 Ethan Galstad. -->\n");
+		printf("\n<!-- Produced by Aionda Monitor (https://github.com/AiondaDotCom/aionda-monitor). -->\n");
 		}
 
 	return;
@@ -1968,14 +1968,14 @@ void cgi_config_file_error(const char *config_file) {
 	printf("<P>\n");
 	printf("<OL>\n");
 
-	printf("<LI>Make sure you've installed a CGI config file in its proper location.  See the error message about for details on where the CGI is expecting to find the configuration file.  A sample CGI configuration file (named <b>cgi.cfg</b>) can be found in the <b>sample-config/</b> subdirectory of the Nagios source code distribution.\n");
+	printf("<LI>Make sure you've installed a CGI config file in its proper location.  See the error message about for details on where the CGI is expecting to find the configuration file.  A sample CGI configuration file (named <b>cgi.cfg</b>) can be found in the <b>sample-config/</b> subdirectory of the Aionda Monitor source code distribution.\n");
 	printf("<LI>Make sure the user your web server is running as has permission to read the CGI config file.\n");
 
 	printf("</OL>\n");
 	printf("</P>\n");
 
 	printf("<P>\n");
-	printf("Make sure you read the documentation on installing and configuring Nagios thoroughly before continuing.  If all else fails, try sending a message to one of the mailing lists.  More information can be found at <a href='https://www.nagios.org'>https://www.nagios.org</a>.\n");
+	printf("Make sure you read the documentation on installing and configuring Aionda Monitor thoroughly before continuing.  If all else fails, open an issue at <a href='https://github.com/AiondaDotCom/aionda-monitor/issues'>https://github.com/AiondaDotCom/aionda-monitor/issues</a>.\n");
 	printf("</P>\n");
 
 	return;
@@ -1997,14 +1997,14 @@ void main_config_file_error(const char *config_file) {
 	printf("<P>\n");
 	printf("<OL>\n");
 
-	printf("<LI>Make sure you've installed a main config file in its proper location.  See the error message about for details on where the CGI is expecting to find the configuration file.  A sample main configuration file (named <b>nagios.cfg</b>) can be found in the <b>sample-config/</b> subdirectory of the Nagios source code distribution.\n");
+	printf("<LI>Make sure you've installed a main config file in its proper location.  See the error message about for details on where the CGI is expecting to find the configuration file.  A sample main configuration file (named <b>monitor.cfg</b>) can be found in the <b>sample-config/</b> subdirectory of the Aionda Monitor source code distribution.\n");
 	printf("<LI>Make sure the user your web server is running as has permission to read the main config file.\n");
 
 	printf("</OL>\n");
 	printf("</P>\n");
 
 	printf("<P>\n");
-	printf("Make sure you read the documentation on installing and configuring Nagios thoroughly before continuing.  If all else fails, try sending a message to one of the mailing lists.  More information can be found at <a href='https://www.nagios.org'>https://www.nagios.org</a>.\n");
+	printf("Make sure you read the documentation on installing and configuring Aionda Monitor thoroughly before continuing.  If all else fails, open an issue at <a href='https://github.com/AiondaDotCom/aionda-monitor/issues'>https://github.com/AiondaDotCom/aionda-monitor/issues</a>.\n");
 	printf("</P>\n");
 
 	return;
@@ -2026,13 +2026,13 @@ void object_data_error(void) {
 	printf("<OL>\n");
 
 	printf("<LI>Verify configuration options using the <b>-v</b> command-line option to check for errors.\n");
-	printf("<LI>Check the Nagios log file for messages relating to startup or status data errors.\n");
+	printf("<LI>Check the Aionda Monitor log file for messages relating to startup or status data errors.\n");
 
 	printf("</OL>\n");
 	printf("</P>\n");
 
 	printf("<P>\n");
-	printf("Make sure you read the documentation on installing, configuring and running Nagios thoroughly before continuing.  If all else fails, try sending a message to one of the mailing lists.  More information can be found at <a href='https://www.nagios.org'>https://www.nagios.org</a>.\n");
+	printf("Make sure you read the documentation on installing, configuring and running Aionda Monitor thoroughly before continuing.  If all else fails, open an issue at <a href='https://github.com/AiondaDotCom/aionda-monitor/issues'>https://github.com/AiondaDotCom/aionda-monitor/issues</a>.\n");
 	printf("</P>\n");
 
 	return;
@@ -2047,7 +2047,7 @@ void status_data_error(void) {
 	printf("<P><STRONG><FONT COLOR='RED'>Error: Could not read host and service status information!</FONT></STRONG></P>\n");
 
 	printf("<P>\n");
-	printf("The most common cause of this error message (especially for new users), is the fact that Nagios is not actually running.  If Nagios is indeed not running, this is a normal error message.  It simply indicates that the CGIs could not obtain the current status of hosts and services that are being monitored.  If you've just installed things, make sure you read the documentation on starting Nagios.\n");
+	printf("The most common cause of this error message (especially for new users), is the fact that Aionda Monitor is not actually running.  If Aionda Monitor is indeed not running, this is a normal error message.  It simply indicates that the CGIs could not obtain the current status of hosts and services that are being monitored.  If you've just installed things, make sure you read the documentation on starting Aionda Monitor.\n");
 	printf("</P>\n");
 
 	printf("<P>\n");
@@ -2057,14 +2057,14 @@ void status_data_error(void) {
 	printf("<P>\n");
 	printf("<OL>\n");
 
-	printf("<LI>Check the Nagios log file for messages relating to startup or status data errors.\n");
-	printf("<LI>Always verify configuration options using the <b>-v</b> command-line option before starting or restarting Nagios!\n");
+	printf("<LI>Check the Aionda Monitor log file for messages relating to startup or status data errors.\n");
+	printf("<LI>Always verify configuration options using the <b>-v</b> command-line option before starting or restarting Aionda Monitor!\n");
 
 	printf("</OL>\n");
 	printf("</P>\n");
 
 	printf("<P>\n");
-	printf("Make sure you read the documentation on installing, configuring and running Nagios thoroughly before continuing.  If all else fails, try sending a message to one of the mailing lists.  More information can be found at <a href='https://www.nagios.org'>https://www.nagios.org</a>.\n");
+	printf("Make sure you read the documentation on installing, configuring and running Aionda Monitor thoroughly before continuing.  If all else fails, open an issue at <a href='https://github.com/AiondaDotCom/aionda-monitor/issues'>https://github.com/AiondaDotCom/aionda-monitor/issues</a>.\n");
 	printf("</P>\n");
 
 	return;

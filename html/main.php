@@ -137,25 +137,6 @@ $c = htmlspecialchars($cfg['cgi_base_url']);
 	.btn:hover { text-decoration: none; background: var(--surface-hover); color: var(--text); }
 	.btn svg, .quick svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
-	/* update notices */
-	#updateversioninfo { width: auto; margin: 0; }
-	#updateversioninfo:not(:has(div)) { display: none; }
-	.updatechecksdisabled, .updateavailable {
-		display: grid; grid-template-columns: 20px 1fr; gap: 2px 12px;
-		padding: 12px 16px; border-radius: var(--radius); border: 1px solid;
-		font-size: 13px; line-height: 1.5; text-align: left;
-	}
-	.updatechecksdisabled { background: var(--warning-soft); border-color: color-mix(in srgb, var(--warning) 35%, transparent); }
-	.updateavailable { background: var(--info-soft); border-color: color-mix(in srgb, var(--info) 35%, transparent); }
-	.updatechecksdisabled::before, .updateavailable::before {
-		content: "!"; grid-row: span 2; display: grid; place-items: center;
-		width: 20px; height: 20px; margin-top: 1px; border-radius: 50%;
-		font-size: 12px; font-weight: 800; color: #1c1300; background: var(--warning);
-	}
-	.updateavailable::before { content: "\2191"; color: #fff; background: var(--info); }
-	.updatechecksdisabled .warningmessage, .updateavailable .updatemessage { font-size: 13px; font-weight: 700; color: var(--text); }
-	.updatechecksdisabled .submessage, .updateavailable .submessage { color: var(--muted); }
-
 	/* overview cards */
 	.cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 	.card {
@@ -246,30 +227,9 @@ $c = htmlspecialchars($cfg['cgi_base_url']);
 	</div>
 	<div class="hero-actions">
 		<span id="core-status" class="core-status"></span>
-		<a class="btn checkforupdates" href="https://www.nagios.org/checkforupdates/?version=<?php echo $this_version; ?>&amp;product=nagioscore" target="_blank" rel="noopener">
+		<a class="btn checkforupdates" href="https://github.com/AiondaDotCom/aionda-monitor/releases" target="_blank" rel="noopener">
 			<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg>Check for updates</a>
 	</div>
-</div>
-
-<div id="updateversioninfo">
-<?php
-	$updateinfo = get_update_information();
-	if (!$updateinfo['update_checks_enabled']) {
-?>
-		<div class="updatechecksdisabled">
-			<div class="warningmessage">Automatic update checks are disabled</div>
-			<div class="submessage">Disabling update checks presents a possible security risk. Visit <a href="https://www.nagios.org/" target="_blank">nagios.org</a> to check for updates manually or enable update checks in your Nagios config file.</div>
-		</div>
-<?php
-	} else if ($updateinfo['update_available'] && $this_version < $updateinfo['update_version']) {
-?>
-		<div class="updateavailable">
-			<div class="updatemessage">A new upstream Nagios Core version is available.</div>
-			<div class="submessage">Visit <a href="https://www.nagios.org/download/" target="_blank">nagios.org</a> to download Nagios <?php echo htmlentities($updateinfo['update_version'], ENT_QUOTES, 'UTF-8');?>.</div>
-		</div>
-<?php
-	}
-?>
 </div>
 
 <div class="cards">

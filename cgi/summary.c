@@ -675,7 +675,7 @@ void document_header(int use_stylesheet) {
 	printf("<head>\n");
 	printf("<link rel=\"shortcut icon\" href=\"%sfavicon.ico\" type=\"image/ico\">\n", url_images_path);
 	printf("<title>\n");
-	printf("Nagios Event Summary\n");
+	printf("Aionda Monitor Event Summary\n");
 	printf("</title>\n");
 
 	if(use_stylesheet == TRUE) {

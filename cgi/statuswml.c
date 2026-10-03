@@ -368,10 +368,10 @@ void display_index(void) {
 
 
 	/**** MAIN MENU SCREEN (CARD 1) ****/
-	printf("<card id='card1' title='Nagios WAP Interface'>\n");
+	printf("<card id='card1' title='Aionda Monitor WAP Interface'>\n");
 	printf("<p align='center' mode='nowrap'>\n");
 
-	printf("<b>Nagios</b><br/><b>WAP Interface</b><br/>\n");
+	printf("<b>Aionda Monitor</b><br/><b>WAP Interface</b><br/>\n");
 
 	printf("<b><anchor title='Quick Stats'>Quick Stats<go href='%s'><postfield name='style' value='quickstats'/></go></anchor></b><br/>\n", STATUSWML_CGI);
 
@@ -415,7 +415,7 @@ void display_index(void) {
 	printf("</p>\n");
 
 	printf("<p align='center' mode='wrap'>\n");
-	printf("<b>Nagios %s</b><br/><b>WAP Interface</b><br/>\n", PROGRAM_VERSION);
+	printf("<b>Aionda Monitor %s</b><br/><b>WAP Interface</b><br/>\n", PROGRAM_VERSION);
 	printf("Copyright (C) 2001 Ethan Galstad<br/>\n");
 	printf("egalstad@nagios.org<br/><br/>\n");
 	printf("License: <b>GPL</b><br/><br/>\n");
@@ -485,9 +485,9 @@ void display_process(void) {
 		}
 
 	if(nagios_process_state == STATE_OK)
-		printf("Nagios process is running<br/>\n");
+		printf("Aionda Monitor process is running<br/>\n");
 	else
-		printf("<b>Nagios process may not be running</b><br/>\n");
+		printf("<b>Aionda Monitor process may not be running</b><br/>\n");
 
 	if(enable_notifications == TRUE)
 		printf("Notifications are enabled<br/>\n");

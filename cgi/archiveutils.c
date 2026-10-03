@@ -70,7 +70,7 @@ const string_value_mapping svm_au_log_types[] = {
 	{ "currentstate", AU_LOGTYPE_STATE_CURRENT, "Current State" },
 	{ "notification", AU_LOGTYPE_NOTIFICATION, "Notification" },
 	{ "downtime", AU_LOGTYPE_DOWNTIME, "Downtime" },
-	{ "nagios", AU_LOGTYPE_NAGIOS, "Nagios" },
+	{ "nagios", AU_LOGTYPE_NAGIOS, "Aionda Monitor" },
 	{ NULL, -1, NULL },
 	};
 

@@ -166,7 +166,7 @@ void document_header(int use_stylesheet) {
 	printf("<HEAD>\n");
 	printf("<link rel=\"shortcut icon\" href=\"%sfavicon.ico\" type=\"image/ico\">\n", url_images_path);
 	printf("<TITLE>\n");
-	printf("Nagios Log File\n");
+	printf("Aionda Monitor Log File\n");
 	printf("</TITLE>\n");
 
 	if(use_stylesheet == TRUE) {

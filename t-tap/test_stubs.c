@@ -63,7 +63,6 @@ service  *service_list;
 int check_for_expired_comment(unsigned long temp_long) {}
 void broker_timed_event(int int1, int int2, int int3, timed_event *timed_event1, struct timeval *timeval1) {}
 int check_for_expired_downtime(void) {}
-int check_for_nagios_updates(int int1, int int2) {}
 time_t get_next_service_notification_time(service *temp_service, time_t time_t1) {}
 int save_state_information(int int1) {}
 int check_for_external_commands(void) {}

@@ -131,14 +131,14 @@ unlike( $output, "/Sorry, but no information is available for this command./", "
 # Tests against command type '13'
 $cmd_typ=13;
 $output = `NAGIOS_CGI_CONFIG=etc/cgi.cfg $remote_user REQUEST_METHOD=GET QUERY_STRING='cmd_typ=$cmd_typ' $local_cgi`;
-like( $output, "/You are requesting to restart the Nagios process/", "$local_cgi with cmd_typ=$cmd_typ shows request to restart Nagios" );
+like( $output, "/You are requesting to restart the Aionda Monitor process/", "$local_cgi with cmd_typ=$cmd_typ shows request to restart Nagios" );
 unlike( $output, "/Sorry, but no information is available for this command./", "$local_cgi with cmd_typ=$cmd_typ has a command description" );
 
 
 # Tests against command type '14'
 $cmd_typ=14;
 $output = `NAGIOS_CGI_CONFIG=etc/cgi.cfg $remote_user REQUEST_METHOD=GET QUERY_STRING='cmd_typ=$cmd_typ' $local_cgi`;
-like( $output, "/You are requesting to shutdown the Nagios process/", "$local_cgi with cmd_typ=$cmd_typ shows request to shutdown Nagios" );
+like( $output, "/You are requesting to shutdown the Aionda Monitor process/", "$local_cgi with cmd_typ=$cmd_typ shows request to shutdown Nagios" );
 unlike( $output, "/Sorry, but no information is available for this command./", "$local_cgi with cmd_typ=$cmd_typ has a command description" );
 
 

@@ -196,7 +196,7 @@ const string_value_mapping svm_option_types[] = {
 #endif
 
 const string_value_mapping parent_host_extras[] = {
-	{ "none", 0, "Hosts that are directly reachable by the Nagios Core host" },
+	{ "none", 0, "Hosts that are directly reachable by the Aionda Monitor host" },
 	{ NULL, -1, NULL },
 	};
 

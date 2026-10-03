@@ -144,7 +144,7 @@ static int require_status(mcp_buf *err) {
 	if(status_loaded)
 		return OK;
 	if(read_all_status_data(status_file, READ_ALL_STATUS_DATA) == ERROR) {
-		mcp_buf_add(err, "Could not read the status data. Is Nagios running?");
+		mcp_buf_add(err, "Could not read the status data. Is Aionda Monitor running?");
 		return ERROR;
 		}
 	status_loaded = TRUE;
@@ -656,11 +656,11 @@ static int write_command(const char *cmd, mcp_buf *err) {
 		return ERROR;
 		}
 	if(check_external_commands == 0) {
-		mcp_buf_add(err, "Nagios is not checking external commands (check_external_commands=0 in nagios.cfg).");
+		mcp_buf_add(err, "Aionda Monitor is not checking external commands (check_external_commands=0 in monitor.cfg).");
 		return ERROR;
 		}
 	if(stat(command_file, &st) != 0) {
-		mcp_buf_addf(err, "Could not stat() the command file %s. Is Nagios running?", command_file);
+		mcp_buf_addf(err, "Could not stat() the command file %s. Is Aionda Monitor running?", command_file);
 		return ERROR;
 		}
 	if((fp = fopen(command_file, "w")) == NULL) {
@@ -710,7 +710,7 @@ static int can_write(mcp_buf *err) {
 		return FALSE;
 		}
 	if(is_authorized_for_read_only(&current_authdata) == TRUE) {
-		mcp_buf_addf(err, "Nagios user '%s' is read-only (authorized_for_read_only in cgi.cfg).", current_token.user);
+		mcp_buf_addf(err, "Aionda Monitor user '%s' is read-only (authorized_for_read_only in cgi.cfg).", current_token.user);
 		return FALSE;
 		}
 	return TRUE;
@@ -1437,7 +1437,7 @@ static mj *tool_schedule_downtime(const mj *args, mcp_buf *err) {
 		}
 	mj_add(res, "start", mj_new_num((double)start));
 	mj_add(res, "end", mj_new_num((double)end));
-	mj_add(res, "note", mj_new_str("Downtimes appear in list_downtimes after Nagios processed the command (usually within seconds)."));
+	mj_add(res, "note", mj_new_str("Downtimes appear in list_downtimes after Aionda Monitor processed the command (usually within seconds)."));
 	return res;
 	}
 
@@ -1792,7 +1792,7 @@ static mj *tool_create_token(const mj *args, mcp_buf *err) {
 
 	res = token_info(&t);
 	mj_add(res, "token", mj_new_str(token));
-	mj_add(res, "note", mj_new_str("The token is shown only once. It acts as the Nagios user above; "
+	mj_add(res, "note", mj_new_str("The token is shown only once. It acts as the Aionda Monitor user above; "
 	                               "that user's rights in cgi.cfg still apply and can only be narrowed by the scopes."));
 	if(require_objects(err) == OK && find_contact((char *)user) == NULL)
 		mj_add(res, "warning", mj_new_str("No contact with this name exists. Unless cgi.cfg grants this user rights "
@@ -1853,7 +1853,7 @@ static mj *tool_revoke_token(const mj *args, mcp_buf *err) {
 
 /*
  * Object configuration changes are planned against a "workspace": all
- * object files that nagios.cfg includes, loaded into memory. Changes are
+ * object files that monitor.cfg includes, loaded into memory. Changes are
  * applied there, shown as a unified diff and validated by running
  * "nagios -v" on a staged copy. Applying repeats the plan (it must match
  * the plan id the client confirmed), backs the files up, writes them and
@@ -1870,10 +1870,10 @@ typedef struct ws_file {
 typedef struct workspace {
 	ws_file *files;
 	int n;
-	char *main_cfg;          /* absolute path of nagios.cfg */
+	char *main_cfg;          /* absolute path of monitor.cfg */
 	char *config_dir;        /* its directory */
 	char *mcp_dir;           /* where new objects go */
-	int main_idx;            /* index of nagios.cfg in files */
+	int main_idx;            /* index of monitor.cfg in files */
 } workspace;
 
 static int config_changes_enabled(void) {
@@ -1972,7 +1972,7 @@ static void ws_add_dir(workspace *ws, const char *dir, int depth) {
 	closedir(d);
 	}
 
-/* "key=value" line of nagios.cfg; returns 1 and pointers into a copy */
+/* "key=value" line of monitor.cfg; returns 1 and pointers into a copy */
 static int main_cfg_directive(const char *line, char *key, size_t keylen, const char **value) {
 	const char *eq;
 	size_t n;
@@ -2053,7 +2053,7 @@ static int ws_load(workspace *ws, mcp_buf *err) {
 	return OK;
 	}
 
-/* the object files (everything except nagios.cfg itself) */
+/* the object files (everything except monitor.cfg itself) */
 static int ws_is_object_file(const workspace *ws, int i) {
 	return i != ws->main_idx;
 	}
@@ -2111,7 +2111,7 @@ static const char *new_object_file_name(const char *type, int is_template) {
 	return name;
 	}
 
-/* makes sure nagios.cfg includes the MCP directory */
+/* makes sure monitor.cfg includes the MCP directory */
 static void ws_ensure_included(workspace *ws) {
 	cfg_file *mc = ws->files[ws->main_idx].cur;
 	int i, last = -1;
@@ -2199,7 +2199,7 @@ static int apply_change(workspace *ws, const mj *op, int index, mcp_buf *err) {
 		return ERROR;
 		}
 	if(!strcmp(type, "command") && !mcp_allow_command_changes) {
-		mcp_buf_addf(err, "Change %d: command definitions run programs on the Nagios server and are read-only through MCP (mcp_allow_command_changes=1 in cgi.cfg enables them).", index + 1);
+		mcp_buf_addf(err, "Change %d: command definitions run programs on the Aionda Monitor server and are read-only through MCP (mcp_allow_command_changes=1 in cgi.cfg enables them).", index + 1);
 		return ERROR;
 		}
 
@@ -2489,7 +2489,7 @@ static int ws_validate(const workspace *ws, mj *result, mcp_buf *err) {
 			mcp_buf_addf(&staged_main, "%s\n", mc->lines[i]);
 		}
 	{
-		char *mp = abs_path(tmp, "nagios.cfg");
+		char *mp = abs_path(tmp, "monitor.cfg");
 		write_whole_file(mp, staged_main.s, 0644);
 		mcp_buf_free(&staged_main);
 
@@ -2730,7 +2730,7 @@ static mj *ws_apply(workspace *ws, const char *plan_id, int reload, mcp_buf *err
 			err->len = 0;
 			}
 		else
-			mj_add(res, "note", mj_new_str("Nagios reloads its configuration now; new objects show up after a few seconds. Use check_now to test them."));
+			mj_add(res, "note", mj_new_str("Aionda Monitor reloads its configuration now; new objects show up after a few seconds. Use check_now to test them."));
 		}
 	fprintf(stderr, "mcp.cgi: configuration changed by '%s', backup %s\n", current_token.user, id);
 	mcp_buf_free(&dir);
@@ -3095,7 +3095,7 @@ static const mcp_tool tools[] = {
 	/* ---- read ---- */
 	{
 		"get_overview", "Monitoring overview", MCP_SCOPE_READ, 1, 0, tool_get_overview,
-		"Program status of the Nagios daemon (running since, notifications/checks enabled globally) "
+		"Program status of the Aionda Monitor daemon (running since, notifications/checks enabled globally) "
 		"and the number of hosts and services per state. Start here to get a feel for the system.",
 		"{\"type\":\"object\",\"properties\":{}}"
 	},
@@ -3146,7 +3146,7 @@ static const mcp_tool tools[] = {
 	},
 	{
 		"get_alert_history", "Alert history", MCP_SCOPE_READ, 1, 0, tool_get_alert_history,
-		"State changes (alerts) from the Nagios log in a time range, optionally for one host, service or host group. "
+		"State changes (alerts) from the Aionda Monitor log in a time range, optionally for one host, service or host group. "
 		"Use it to answer 'what happened' and 'since when'.",
 		"{\"type\":\"object\",\"properties\":{" S_HOST "," S_SERVICE ",\"hostgroup\":{\"type\":\"string\"}," S_RANGE ","
 		"\"limit\":{\"type\":\"integer\",\"minimum\":1,\"maximum\":5000,\"description\":\"Maximum entries (default 200)\"}}}"
@@ -3165,7 +3165,7 @@ static const mcp_tool tools[] = {
 	},
 	{
 		"get_config", "Object configuration", MCP_SCOPE_READ, 1, 0, tool_get_config,
-		"Configuration of Nagios objects. With 'name' returns one object in full, without it lists all objects of the type "
+		"Configuration of Aionda Monitor objects. With 'name' returns one object in full, without it lists all objects of the type "
 		"(names only unless details=true). Needs authorized_for_configuration_information.",
 		"{\"type\":\"object\",\"properties\":{\"type\":{\"enum\":[\"host\",\"hostgroup\",\"service\",\"servicegroup\",\"contact\",\"contactgroup\","
 		"\"timeperiod\",\"command\",\"hostdependency\",\"servicedependency\",\"hostescalation\",\"serviceescalation\"]},"
@@ -3174,7 +3174,7 @@ static const mcp_tool tools[] = {
 	},
 	{
 		"get_performance", "Monitoring performance", MCP_SCOPE_READ, 1, 0, tool_get_performance,
-		"Check execution times, latencies and check counts of the Nagios daemon. Useful when checks run late.",
+		"Check execution times, latencies and check counts of the Aionda Monitor daemon. Useful when checks run late.",
 		"{\"type\":\"object\",\"properties\":{}}"
 	},
 
@@ -3213,7 +3213,7 @@ static const mcp_tool tools[] = {
 		"add_comment", "Add a comment", MCP_SCOPE_WRITE, 0, 0, tool_add_comment,
 		"Add a comment to a host or service, visible to everyone in the web interface.",
 		"{\"type\":\"object\",\"properties\":{" S_HOST "," S_SERVICE "," S_COMMENT ","
-		"\"persistent\":{\"type\":\"boolean\",\"description\":\"Keep across Nagios restarts (default true)\"}},\"required\":[\"host\",\"comment\"]}"
+		"\"persistent\":{\"type\":\"boolean\",\"description\":\"Keep across Aionda Monitor restarts (default true)\"}},\"required\":[\"host\",\"comment\"]}"
 	},
 	{
 		"delete_comment", "Delete a comment", MCP_SCOPE_WRITE, 0, 1, tool_delete_comment,
@@ -3237,14 +3237,14 @@ static const mcp_tool tools[] = {
 	{
 		"set_notifications", "Enable or disable notifications", MCP_SCOPE_WRITE, 0, 0, tool_set_notifications,
 		"Enable or disable notifications for a service, a host (optionally with all its services) or, "
-		"without 'host', for the whole Nagios instance (needs system command rights).",
+		"without 'host', for the whole Aionda Monitor instance (needs system command rights).",
 		"{\"type\":\"object\",\"properties\":{\"enabled\":{\"type\":\"boolean\"}," S_HOST "," S_SERVICE ","
 		"\"include_services\":{\"type\":\"boolean\"}},\"required\":[\"enabled\"]}"
 	},
 	{
 		"set_active_checks", "Enable or disable active checks", MCP_SCOPE_WRITE, 0, 0, tool_set_active_checks,
 		"Enable or disable active checks for a service, a host (optionally with all its services) or, "
-		"without 'host', for the whole Nagios instance (needs system command rights).",
+		"without 'host', for the whole Aionda Monitor instance (needs system command rights).",
 		"{\"type\":\"object\",\"properties\":{\"enabled\":{\"type\":\"boolean\"}," S_HOST "," S_SERVICE ","
 		"\"include_services\":{\"type\":\"boolean\"}},\"required\":[\"enabled\"]}"
 	},
@@ -3252,7 +3252,7 @@ static const mcp_tool tools[] = {
 	/* ---- admin ---- */
 	{
 		"run_external_command", "Run any external command", MCP_SCOPE_ADMIN, 0, 1, tool_run_external_command,
-		"Submit any Nagios external command that the web interface can send (e.g. DISABLE_HOST_FLAP_DETECTION, "
+		"Submit any Aionda Monitor external command that the web interface can send (e.g. DISABLE_HOST_FLAP_DETECTION, "
 		"SEND_CUSTOM_SVC_NOTIFICATION, RESTART_PROCESS). Prefer the specific tools when one fits. "
 		"See https://assets.nagios.com/downloads/nagioscore/docs/externalcmds/ for names and arguments.",
 		"{\"type\":\"object\",\"properties\":{\"command\":{\"type\":\"string\",\"description\":\"Command name, e.g. DISABLE_HOST_FLAP_DETECTION\"},"
@@ -3260,10 +3260,10 @@ static const mcp_tool tools[] = {
 	},
 	{
 		"create_token", "Create an MCP token", MCP_SCOPE_ADMIN, 0, 0, tool_create_token,
-		"Create an access token for this MCP server for any Nagios user. The token acts as that user (their "
+		"Create an access token for this MCP server for any Aionda Monitor user. The token acts as that user (their "
 		"cgi.cfg rights apply) and is limited further by its scopes: read = query only, write = also acknowledge, "
 		"downtime, checks, comments; admin = also tokens and arbitrary external commands. The token is returned once.",
-		"{\"type\":\"object\",\"properties\":{\"user\":{\"type\":\"string\",\"description\":\"Nagios user name (usually a contact name)\"},"
+		"{\"type\":\"object\",\"properties\":{\"user\":{\"type\":\"string\",\"description\":\"Aionda Monitor user name (usually a contact name)\"},"
 		"\"scopes\":{\"type\":\"array\",\"items\":{\"enum\":[\"read\",\"write\",\"admin\",\"config\"]},\"description\":\"Default [read]. 'config' (object configuration changes) is separate from admin.\"},"
 		"\"label\":{\"type\":\"string\",\"description\":\"What the token is for, e.g. 'Claude Desktop Jane'\"},"
 		"\"expires_in_days\":{\"type\":\"integer\",\"minimum\":0,\"maximum\":3650,\"description\":\"0 or omitted = never\"}},\"required\":[\"user\",\"label\"]}"
@@ -3282,7 +3282,7 @@ static const mcp_tool tools[] = {
 	/* ---- configuration (scope "config", needs mcp_allow_config_changes=1) ---- */
 	{
 		"list_config_files", "List configuration files", MCP_SCOPE_CONFIG, 1, 0, tool_list_config_files,
-		"The object configuration files Nagios reads (from cfg_file/cfg_dir in nagios.cfg), how many objects of "
+		"The object configuration files Aionda Monitor reads (from cfg_file/cfg_dir in monitor.cfg), how many objects of "
 		"each type they define, whether they are writable, and where new objects are created.",
 		"{\"type\":\"object\",\"properties\":{}}"
 	},
@@ -3297,7 +3297,7 @@ static const mcp_tool tools[] = {
 	},
 	{
 		"plan_config_change", "Plan a configuration change", MCP_SCOPE_CONFIG, 1, 0, tool_plan_config_change,
-		"Step 1 of 2 for changing the Nagios object configuration. Computes the change without writing anything: returns "
+		"Step 1 of 2 for changing the Aionda Monitor object configuration. Computes the change without writing anything: returns "
 		"a unified diff, the result of 'nagios -v' on the changed configuration, and a plan_id. Existing objects are "
 		"edited in place in their file (only their define block changes); new objects go to the MCP directory. "
 		"Example, monitor a new Linux server: create a host {use: linux-server, host_name, alias, address} and services "
@@ -3319,9 +3319,9 @@ static const mcp_tool tools[] = {
 		"apply_config_change", "Apply a configuration change", MCP_SCOPE_CONFIG, 0, 1, tool_apply_config_change,
 		"Step 2 of 2: applies exactly the changes of a plan the user confirmed. Pass the same 'changes' and the plan_id "
 		"from plan_config_change; if the files changed in between the call is refused. Validates again, backs up the "
-		"files (see list_config_backups), writes them and reloads Nagios.",
+		"files (see list_config_backups), writes them and reloads Aionda Monitor.",
 		"{\"type\":\"object\",\"properties\":{\"changes\":{\"type\":\"array\",\"items\":{\"type\":\"object\"}},"
-		"\"plan_id\":{\"type\":\"string\"},\"reload\":{\"type\":\"boolean\",\"description\":\"Reload Nagios afterwards (default true)\"}},\"required\":[\"changes\",\"plan_id\"]}"
+		"\"plan_id\":{\"type\":\"string\"},\"reload\":{\"type\":\"boolean\",\"description\":\"Reload Aionda Monitor afterwards (default true)\"}},\"required\":[\"changes\",\"plan_id\"]}"
 	},
 	{
 		"list_config_backups", "List configuration backups", MCP_SCOPE_CONFIG, 1, 0, tool_list_config_backups,
@@ -3404,7 +3404,7 @@ static mj *rpc_initialize(const mj *params) {
 	           "Use get_help for online workflows, examples and access diagnostics without reading source code. "
 	           "Use get_overview or list_problems first, then get_host/get_service for details and "
 	           "get_alert_history for what happened when. Write actions (acknowledge, downtime, checks, comments) "
-	           "are recorded in Nagios with the token's user as author; confirm them with the user before running them. "
+	           "are recorded in Aionda Monitor with the token's user as author; confirm them with the user before running them. "
 	           "Times are ISO 8601 with UTC offset."));
 	return res;
 	}
@@ -3504,17 +3504,17 @@ static mj *tool_get_help(const mj *args, mcp_buf *err) {
 		    "Use create with attributes for a new object; update with set/unset; delete with name and host for services. "
 		    "Values are strings. Select templates by template instead of name. "
 		    "3. Review validation.valid, errors, warnings and the diff; show the diff and obtain user approval. "
-		    "4. Call apply_config_change with exactly the same changes and plan_id. It validates again, backs up files and normally reloads Nagios. "
+		    "4. Call apply_config_change with exactly the same changes and plan_id. It validates again, backs up files and normally reloads Aionda Monitor. "
 		    "A stale plan must be regenerated and reviewed. On a timeout inspect current state before retrying. "
 		    "5. Verify the new configuration and run check_now. A service rename means using the new name. "
 		    "To undo, list_config_backups, then restore_config_backup {backup_id}; review its plan and call again with backup_id and plan_id. "
-		    "Existing files are edited in place. New definitions go to the configured MCP object directory; adding its include may require nagios.cfg write access. "
+		    "Existing files are edited in place. New definitions go to the configured MCP object directory; adding its include may require monitor.cfg write access. "
 		    "The CGI user needs read access to included files/resources, access required by nagios -v, write access to changed files and the backup directory. "
 		    "Do not chmod everything writable or disable validation; grant only the needed paths."));
 	if(!strcmp(topic, "all") || !strcmp(topic, "authentication"))
 		mj_add(guide, "authentication", mj_new_str(
 		    "Send Authorization: Bearer <token> on each HTTPS JSON-RPC POST. Browser passwords/sessions do not authenticate MCP. "
-		    "Tokens act as their Nagios user; scopes only narrow that user's rights. read queries; write adds operational changes; "
+		    "Tokens act as their Aionda Monitor user; scopes only narrow that user's rights. read queries; write adds operational changes; "
 		    "admin adds token management and external commands; config is separate and not implied by admin. "
 		    "An administrator can run mcp.cgi --create-token --user USER --scopes read,write --label CLIENT --expires-days 90. "
 		    "The secret is shown once; only a hash is stored server-side. CLI --list-tokens and --revoke-token ID manage tokens. "
@@ -3527,7 +3527,7 @@ static mj *tool_get_help(const mj *args, mcp_buf *err) {
 		    "If a client cached its tool list, reconnect it after permissions change. Tool failures use isError; inspect their text. "
 		    "Plan validation errors must be fixed before apply. Permission errors require administrator-granted file access. "
 		    "An accepted check_now only schedules work; verify last_check and the plugin result afterwards. "
-		    "Do not use SSH or read Nagios source to discover workflows: use this help, tools/list, get_config and get_config_source. "
+		    "Do not use SSH or read Aionda Monitor source to discover workflows: use this help, tools/list, get_config and get_config_source. "
 		    "Initial server provisioning and permission grants may still require an administrator outside MCP."));
 	return res;
 	}
@@ -3680,15 +3680,15 @@ static int serve_request(void) {
 		}
 
 	if(auth == NULL || strncasecmp(auth, "Bearer ", 7)) {
-		http_error(401, "Unauthorized", "WWW-Authenticate: Bearer realm=\"Nagios MCP\"\r\n",
-		           "Missing bearer token. Create one with 'mcp.cgi --create-token' on the Nagios server.");
+		http_error(401, "Unauthorized", "WWW-Authenticate: Bearer realm=\"Aionda Monitor MCP\"\r\n",
+		           "Missing bearer token. Create one with 'mcp.cgi --create-token' on the Aionda Monitor server.");
 		return OK;
 		}
 	rc = authenticate_token(auth + 7);
 	if(rc != 1) {
 		http_error(401, "Unauthorized",
-		           rc < 0 ? "WWW-Authenticate: Bearer realm=\"Nagios MCP\", error=\"invalid_token\", error_description=\"expired\"\r\n"
-		           : "WWW-Authenticate: Bearer realm=\"Nagios MCP\", error=\"invalid_token\"\r\n",
+		           rc < 0 ? "WWW-Authenticate: Bearer realm=\"Aionda Monitor MCP\", error=\"invalid_token\", error_description=\"expired\"\r\n"
+		           : "WWW-Authenticate: Bearer realm=\"Aionda Monitor MCP\", error=\"invalid_token\"\r\n",
 		           rc < 0 ? "Token expired" : "Invalid token");
 		return OK;
 		}

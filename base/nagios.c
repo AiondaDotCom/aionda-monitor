@@ -396,6 +396,28 @@ int main(int argc, char **argv) {
 		exit(ERROR);
 		}
 
+	/*
+	 * monitor.cfg replaced nagios.cfg. Installations that were not
+	 * migrated yet keep working with their old main config file.
+	 */
+	{
+		size_t len = strlen(config_file);
+		if(len >= 12 && !strcmp(config_file + len - 12, "/monitor.cfg") && access(config_file, F_OK) != 0) {
+			char *legacy = (char *)malloc(len);
+			if(legacy != NULL) {
+				memcpy(legacy, config_file, len - 11);
+				strcpy(legacy + len - 11, "nagios.cfg");
+				if(access(legacy, F_OK) == 0) {
+					printf("Warning: '%s' not found, using '%s'. Please rename it to monitor.cfg.\n", config_file, legacy);
+					my_free(config_file);
+					config_file = legacy;
+					}
+				else
+					my_free(legacy);
+				}
+			}
+	}
+
 	config_file_dir = nspath_absolute_dirname(config_file, NULL);
 
 	/* 
@@ -463,7 +485,7 @@ int main(int argc, char **argv) {
 		if(result != OK) {
 			printf("   Error processing object config files!\n\n");
 			/* if the config filename looks fishy, warn the user */
-			if(!strstr(config_file, "nagios.cfg")) {
+			if(!strstr(config_file, "monitor.cfg") && !strstr(config_file, "nagios.cfg")) {
 				printf("\n***> The name of the main configuration file looks suspicious...\n");
 				printf("\n");
 				printf("     Make sure you are specifying the name of the MAIN configuration file on\n");
@@ -810,10 +832,6 @@ int main(int argc, char **argv) {
 			/* initialize check statistics */
 			init_check_stats();
 			timing_point("check stats initialized\n");
-
-			/* check for updates */
-			check_for_nagios_updates(FALSE, TRUE);
-			timing_point("Update check concluded\n");
 
 			/* update all status data (with retained information) */
 			update_all_status_data();

@@ -126,8 +126,8 @@ How files are edited:
   their `define` block change, comments and formatting elsewhere stay as
   they are. The parser follows Nagios' own rules (`;` comments, `\;`,
   continuation lines with a trailing backslash).
-- New objects go to `objects/mcp/<type>s.cfg` next to `nagios.cfg`
-  (`mcp_config_dir`); a `cfg_dir` line is added to `nagios.cfg` if needed.
+- New objects go to `objects/mcp/<type>s.cfg` next to `monitor.cfg`
+  (`mcp_config_dir`); a `cfg_dir` line is added to `monitor.cfg` if needed.
 - Dependencies and escalations have no name and cannot be edited; objects
   defined more than once are refused.
 - Command definitions are read-only unless `mcp_allow_command_changes=1`:

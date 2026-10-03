@@ -150,9 +150,9 @@ const string_value_mapping valid_queries[] = {
 	{ "downtime", STATUS_QUERY_DOWNTIME,
 		"Return a single downtime" },
 	{ "programstatus", STATUS_QUERY_PROGRAMSTATUS,
-		"Return the Nagios Core program status" },
+		"Return the Aionda Monitor program status" },
 	{ "performancedata", STATUS_QUERY_PERFORMANCEDATA,
-		"Return the Nagios Core performance data" },
+		"Return the Aionda Monitor performance data" },
 	{ "help", STATUS_QUERY_HELP, 
 		"Display help for this CGI" },
 	{ NULL, -1, NULL},
@@ -329,7 +329,7 @@ option_help status_json_help[] = {
 		{ NULL },
 		{ "hostcount", "hostlist", "servicecount", "servicelist", NULL },
 		NULL,
-		"Limits the hosts or services returned to those whose host parent is specified. A value of 'none' returns all hosts or services reachable directly by the Nagios core host.",
+		"Limits the hosts or services returned to those whose host parent is specified. A value of 'none' returns all hosts or services reachable directly by the Aionda Monitor host.",
 		parent_host_extras
 		},
 	{ 

@@ -4455,12 +4455,6 @@ then :
   printf "%s\n" "#define HAVE_POLL_H 1" >>confdefs.h
 
 fi
-ac_fn_c_check_header_compile "$LINENO" "sys/poll.h" "ac_cv_header_sys_poll_h" "$ac_includes_default"
-if test "x$ac_cv_header_sys_poll_h" = xyes
-then :
-  printf "%s\n" "#define HAVE_SYS_POLL_H 1" >>confdefs.h
-
-fi
 ac_fn_c_check_header_compile "$LINENO" "syslog.h" "ac_cv_header_syslog_h" "$ac_includes_default"
 if test "x$ac_cv_header_syslog_h" = xyes
 then :
@@ -7474,23 +7468,23 @@ fi
 
 fi
 if test "x$MAIL_PROG" = "x"; then
-	if which mail >/dev/null; then
-		MAIL_PROG=`which mail`
-	elif which sendmail >/dev/null; then
-		MAIL_PROG=`which sendmail`
+	if command -v mail >/dev/null; then
+		MAIL_PROG=$(command -v mail)
+	elif command -v sendmail >/dev/null; then
+		MAIL_PROG=$(command -v sendmail)
 	else
 		MAIL_PROG="/bin/mail"
 	fi
 fi
 
 
-BIN_RM=`which rm`
+BIN_RM=$(command -v rm)
 if test $? -ne 0; then
 	BIN_RM='/bin/rm'
 fi
 
 
-BIN_KILL=`which kill`
+BIN_KILL=$(command -v kill)
 if test $? -ne 0; then
 	BIN_KILL='/bin/kill'
 fi
@@ -10249,7 +10243,7 @@ if test ! -d "sample-config/template-object"; then
 	mkdir -p "sample-config/template-object"
 fi
 
-perl subst sample-config/nagios.cfg
+perl subst sample-config/monitor.cfg
 perl subst sample-config/cgi.cfg
 perl subst sample-config/resource.cfg
 perl subst sample-config/httpd.conf

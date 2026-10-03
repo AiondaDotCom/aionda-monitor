@@ -791,7 +791,7 @@ void request_command_data(int cmd) {
 
 		case CMD_SHUTDOWN_PROCESS:
 		case CMD_RESTART_PROCESS:
-			printf("%s the Nagios process", (cmd == CMD_SHUTDOWN_PROCESS) ? "shutdown" : "restart");
+			printf("%s the Aionda Monitor process", (cmd == CMD_SHUTDOWN_PROCESS) ? "shutdown" : "restart");
 			break;
 
 		case CMD_ENABLE_HOST_SVC_CHECKS:
@@ -1868,7 +1868,7 @@ void commit_command_data(int cmd) {
 			printf("<DIV CLASS='errorMessage'>Sorry Dave, I can't let you do that...</DIV><br>");
 			printf("<DIV CLASS='errorDescription'>");
 			printf("It seems that you have chosen to not use the authentication functionality of the CGIs.<br><br>");
-			printf("I don't want to be personally responsible for what may happen as a result of allowing unauthorized users to issue commands to Nagios, ");
+			printf("I don't want to be personally responsible for what may happen as a result of allowing unauthorized users to issue commands to Aionda Monitor, ");
 			printf("so you'll have to disable this safeguard if you are really stubborn and want to invite trouble.<br><br>");
 			printf("<strong>Read the section on CGI authentication in the HTML documentation to learn how you can enable authentication and why you should want to.</strong>\n");
 			printf("</DIV>\n");
@@ -1903,10 +1903,10 @@ void commit_command_data(int cmd) {
 	/* if Nagios isn't checking external commands, don't do anything... */
 	else if(check_external_commands == FALSE) {
 		if(content_type == WML_CONTENT) {
-			printf("<p>Error: Nagios is not checking external commands!</p>\n");
+			printf("<p>Error: Aionda Monitor is not checking external commands!</p>\n");
 		}
 		else {
-			printf("<P><DIV CLASS='errorMessage'>Sorry, but Nagios is currently not checking for external commands, so your command will not be committed!</DIV></P>\n");
+			printf("<P><DIV CLASS='errorMessage'>Sorry, but Aionda Monitor is currently not checking for external commands, so your command will not be committed!</DIV></P>\n");
 			printf("<P><DIV CLASS='errorDescription'>Read the documentation for information on how to enable external commands...<BR><BR>\n");
 			printf("<A HREF='javascript:window.history.go(-2)'>Return from whence you came</A></DIV></P>\n");
 		}
@@ -1923,7 +1923,7 @@ void commit_command_data(int cmd) {
 				printf("<p>Your command was submitted successfully...</p>\n");
 			}
 			else {
-				printf("<P><DIV CLASS='infoMessage'>Your command request was successfully submitted to Nagios for processing.<BR><BR>\n");
+				printf("<P><DIV CLASS='infoMessage'>Your command request was successfully submitted to Aionda Monitor for processing.<BR><BR>\n");
 				printf("Note: It may take a while before the command is actually processed.<BR><BR>\n");
 				printf("<A HREF='javascript:window.history.go(-2)'>Done</A></DIV></P>");
 			}
@@ -2301,7 +2301,7 @@ int write_command_to_file(char *cmd) {
 		else {
 			printf("<P><DIV CLASS='errorMessage'>Error: Could not stat() command file '%s'!</DIV></P>\n", command_file);
 			printf("<P><DIV CLASS='errorDescription'>");
-			printf("The external command file may be missing, Nagios may not be running, and/or Nagios may not be checking external commands.\n");
+			printf("The external command file may be missing, Aionda Monitor may not be running, and/or Aionda Monitor may not be checking external commands.\n");
 			printf("</DIV></P>\n");
 			}
 
@@ -2368,13 +2368,13 @@ void show_command_help(int cmd) {
 		case CMD_ADD_HOST_COMMENT:
 			printf("This command is used to add a comment for the specified host.  If you work with other administrators, you may find it useful to share information about a host\n");
 			printf("that is having problems if more than one of you may be working on it.  If you do not check the 'persistent' option, the comment will be automatically be deleted\n");
-			printf("the next time Nagios is restarted.\n");
+			printf("the next time Aionda Monitor is restarted.\n");
 			break;
 
 		case CMD_ADD_SVC_COMMENT:
 			printf("This command is used to add a comment for the specified service.  If you work with other administrators, you may find it useful to share information about a host\n");
 			printf("or service that is having problems if more than one of you may be working on it.  If you do not check the 'persistent' option, the comment will automatically be\n");
-			printf("deleted the next time Nagios is restarted.\n");
+			printf("deleted the next time Aionda Monitor is restarted.\n");
 			break;
 
 		case CMD_DEL_HOST_COMMENT:
@@ -2396,8 +2396,8 @@ void show_command_help(int cmd) {
 			break;
 
 		case CMD_SCHEDULE_SVC_CHECK:
-			printf("This command is used to schedule the next check of a particular service.  Nagios will re-queue the service to be checked at the time you specify.\n");
-			printf("If you select the <i>force check</i> option, Nagios will force a check of the service regardless of both what time the scheduled check occurs and whether or not checks are enabled for the service.\n");
+			printf("This command is used to schedule the next check of a particular service.  Aionda Monitor will re-queue the service to be checked at the time you specify.\n");
+			printf("If you select the <i>force check</i> option, Aionda Monitor will force a check of the service regardless of both what time the scheduled check occurs and whether or not checks are enabled for the service.\n");
 			break;
 
 		case CMD_ENABLE_SVC_CHECK:
@@ -2417,12 +2417,12 @@ void show_command_help(int cmd) {
 			break;
 
 		case CMD_SHUTDOWN_PROCESS:
-			printf("This command is used to shutdown the Nagios process. Note: Once the Nagios has been shutdown, it cannot be restarted via the web interface!\n");
+			printf("This command is used to shutdown the Aionda Monitor process. Note: Once Aionda Monitor has been shutdown, it cannot be restarted via the web interface!\n");
 			break;
 
 		case CMD_RESTART_PROCESS:
-			printf("This command is used to restart the Nagios process.   Executing a restart command is equivalent to sending the process a HUP signal.\n");
-			printf("All information will be flushed from memory, the configuration files will be re-read, and Nagios will start monitoring with the new configuration information.\n");
+			printf("This command is used to restart the Aionda Monitor process.   Executing a restart command is equivalent to sending the process a HUP signal.\n");
+			printf("All information will be flushed from memory, the configuration files will be re-read, and Aionda Monitor will start monitoring with the new configuration information.\n");
 			break;
 
 		case CMD_ENABLE_HOST_SVC_CHECKS:
@@ -2430,13 +2430,13 @@ void show_command_help(int cmd) {
 			break;
 
 		case CMD_DISABLE_HOST_SVC_CHECKS:
-			printf("This command is used to disable active checks of all services associated with the specified host.  When a service is disabled Nagios will not monitor the service.  Doing this will prevent any notifications being sent out for\n");
-			printf("the specified service while it is disabled.  In order to have Nagios check the service in the future you will have to re-enable the service.\n");
+			printf("This command is used to disable active checks of all services associated with the specified host.  When a service is disabled Aionda Monitor will not monitor the service.  Doing this will prevent any notifications being sent out for\n");
+			printf("the specified service while it is disabled.  In order to have Aionda Monitor check the service in the future you will have to re-enable the service.\n");
 			printf("Note that disabling service checks may not necessarily prevent notifications from being sent out about the host which those services are associated with.  This <i>does not</i> disable checks of the host unless you check the 'Disable for host too' option.\n");
 			break;
 
 		case CMD_SCHEDULE_HOST_SVC_CHECKS:
-			printf("This command is used to scheduled the next check of all services on the specified host.  If you select the <i>force check</i> option, Nagios will force a check of all services on the host regardless of both what time the scheduled checks occur and whether or not checks are enabled for those services.\n");
+			printf("This command is used to scheduled the next check of all services on the specified host.  If you select the <i>force check</i> option, Aionda Monitor will force a check of all services on the host regardless of both what time the scheduled checks occur and whether or not checks are enabled for those services.\n");
 			break;
 
 		case CMD_DEL_ALL_HOST_COMMENTS:
@@ -2470,12 +2470,12 @@ void show_command_help(int cmd) {
 
 		case CMD_ENABLE_ALL_NOTIFICATIONS_BEYOND_HOST:
 			printf("This command is used to enable notifications for all hosts and services that lie \"beyond\" the specified host\n");
-			printf("(from the view of Nagios).\n");
+			printf("(from the view of Aionda Monitor).\n");
 			break;
 
 		case CMD_DISABLE_ALL_NOTIFICATIONS_BEYOND_HOST:
 			printf("This command is used to temporarily prevent notifications from being sent out for all hosts and services that lie\n");
-			printf("\"beyond\" the specified host (from the view of Nagios).\n");
+			printf("\"beyond\" the specified host (from the view of Aionda Monitor).\n");
 			break;
 
 		case CMD_ENABLE_HOST_SVC_NOTIFICATIONS:
@@ -2509,48 +2509,48 @@ void show_command_help(int cmd) {
 			break;
 
 		case CMD_STOP_EXECUTING_SVC_CHECKS:
-			printf("This command is used to temporarily stop Nagios from actively executing any service checks.  This will have the side effect of preventing any notifications from being sent out (for any and all services and hosts).\n");
+			printf("This command is used to temporarily stop Aionda Monitor from actively executing any service checks.  This will have the side effect of preventing any notifications from being sent out (for any and all services and hosts).\n");
 			printf("Service checks will not be executed again until you issue a command to resume service check execution.\n");
 			break;
 
 		case CMD_START_ACCEPTING_PASSIVE_SVC_CHECKS:
-			printf("This command is used to make Nagios start accepting passive service check results that it finds in the external command file\n");
+			printf("This command is used to make Aionda Monitor start accepting passive service check results that it finds in the external command file\n");
 			break;
 
 		case CMD_STOP_ACCEPTING_PASSIVE_SVC_CHECKS:
-			printf("This command is use to make Nagios stop accepting passive service check results that it finds in the external command file.  All passive check results that are found will be ignored.\n");
+			printf("This command is use to make Aionda Monitor stop accepting passive service check results that it finds in the external command file.  All passive check results that are found will be ignored.\n");
 			break;
 
 		case CMD_ENABLE_PASSIVE_SVC_CHECKS:
-			printf("This command is used to allow Nagios to accept passive service check results that it finds in the external command file for this particular service.\n");
+			printf("This command is used to allow Aionda Monitor to accept passive service check results that it finds in the external command file for this particular service.\n");
 			break;
 
 		case CMD_DISABLE_PASSIVE_SVC_CHECKS:
-			printf("This command is used to stop Nagios accepting passive service check results that it finds in the external command file for this particular service.  All passive check results that are found for this service will be ignored.\n");
+			printf("This command is used to stop Aionda Monitor accepting passive service check results that it finds in the external command file for this particular service.  All passive check results that are found for this service will be ignored.\n");
 			break;
 
 		case CMD_ENABLE_EVENT_HANDLERS:
-			printf("This command is used to allow Nagios to run host and service event handlers.\n");
+			printf("This command is used to allow Aionda Monitor to run host and service event handlers.\n");
 			break;
 
 		case CMD_DISABLE_EVENT_HANDLERS:
-			printf("This command is used to temporarily prevent Nagios from running any host or service event handlers.\n");
+			printf("This command is used to temporarily prevent Aionda Monitor from running any host or service event handlers.\n");
 			break;
 
 		case CMD_ENABLE_SVC_EVENT_HANDLER:
-			printf("This command is used to allow Nagios to run the service event handler for a particular service when necessary (if one is defined).\n");
+			printf("This command is used to allow Aionda Monitor to run the service event handler for a particular service when necessary (if one is defined).\n");
 			break;
 
 		case CMD_DISABLE_SVC_EVENT_HANDLER:
-			printf("This command is used to temporarily prevent Nagios from running the service event handler for a particular service.\n");
+			printf("This command is used to temporarily prevent Aionda Monitor from running the service event handler for a particular service.\n");
 			break;
 
 		case CMD_ENABLE_HOST_EVENT_HANDLER:
-			printf("This command is used to allow Nagios to run the host event handler for a particular service when necessary (if one is defined).\n");
+			printf("This command is used to allow Aionda Monitor to run the host event handler for a particular service when necessary (if one is defined).\n");
 			break;
 
 		case CMD_DISABLE_HOST_EVENT_HANDLER:
-			printf("This command is used to temporarily prevent Nagios from running the host event handler for a particular host.\n");
+			printf("This command is used to temporarily prevent Aionda Monitor from running the host event handler for a particular host.\n");
 			break;
 
 		case CMD_ENABLE_HOST_CHECK:
@@ -2558,15 +2558,15 @@ void show_command_help(int cmd) {
 			break;
 
 		case CMD_DISABLE_HOST_CHECK:
-			printf("This command is used to temporarily prevent Nagios from actively checking the status of a particular host.  If Nagios needs to check the status of this host, it will assume that it is in the same state that it was in before checks were disabled.\n");
+			printf("This command is used to temporarily prevent Aionda Monitor from actively checking the status of a particular host.  If Aionda Monitor needs to check the status of this host, it will assume that it is in the same state that it was in before checks were disabled.\n");
 			break;
 
 		case CMD_START_OBSESSING_OVER_SVC_CHECKS:
-			printf("This command is used to have Nagios start obsessing over service checks.  Read the documentation on distributed monitoring for more information on this.\n");
+			printf("This command is used to have Aionda Monitor start obsessing over service checks.  Read the documentation on distributed monitoring for more information on this.\n");
 			break;
 
 		case CMD_STOP_OBSESSING_OVER_SVC_CHECKS:
-			printf("This command is used stop Nagios from obsessing over service checks.\n");
+			printf("This command is used stop Aionda Monitor from obsessing over service checks.\n");
 			break;
 
 		case CMD_REMOVE_HOST_ACKNOWLEDGEMENT:
@@ -2588,30 +2588,30 @@ void show_command_help(int cmd) {
 			break;
 
 		case CMD_SCHEDULE_HOST_DOWNTIME:
-			printf("This command is used to schedule downtime for a particular host.  During the specified downtime, Nagios will not send notifications out about the host.\n");
-			printf("When the scheduled downtime expires, Nagios will send out notifications for this host as it normally would.  Scheduled downtimes are preserved\n");
+			printf("This command is used to schedule downtime for a particular host.  During the specified downtime, Aionda Monitor will not send notifications out about the host.\n");
+			printf("When the scheduled downtime expires, Aionda Monitor will send out notifications for this host as it normally would.  Scheduled downtimes are preserved\n");
 			printf("across program shutdowns and restarts.  Both the start and end times should be specified in the following format:  <b>mm/dd/yyyy hh:mm:ss</b>.\n");
 			printf("If you select the <i>fixed</i> option, the downtime will be in effect between the start and end times you specify.  If you do not select the <i>fixed</i>\n");
-			printf("option, Nagios will treat this as \"flexible\" downtime.  Flexible downtime starts when the host goes down or becomes unreachable (sometime between the\n");
+			printf("option, Aionda Monitor will treat this as \"flexible\" downtime.  Flexible downtime starts when the host goes down or becomes unreachable (sometime between the\n");
 			printf("start and end times you specified) and lasts as long as the duration of time you enter.  The duration fields do not apply for fixed downtime.\n");
 			break;
 
 		case CMD_SCHEDULE_HOST_SVC_DOWNTIME:
-			printf("This command is used to schedule downtime for all services on a particular host.  During the specified downtime, Nagios will not send notifications out about the host.\n");
+			printf("This command is used to schedule downtime for all services on a particular host.  During the specified downtime, Aionda Monitor will not send notifications out about the host.\n");
 			printf("Normally, a host in downtime will not send alerts about any services in a failed state. This option will explicitly set downtime for all services for this host.\n");
-			printf("When the scheduled downtime expires, Nagios will send out notifications for this host as it normally would.  Scheduled downtimes are preserved\n");
+			printf("When the scheduled downtime expires, Aionda Monitor will send out notifications for this host as it normally would.  Scheduled downtimes are preserved\n");
 			printf("across program shutdowns and restarts.  Both the start and end times should be specified in the following format:  <b>mm/dd/yyyy hh:mm:ss</b>.\n");
 			printf("If you select the <i>fixed</i> option, the downtime will be in effect between the start and end times you specify.  If you do not select the <i>fixed</i>\n");
-			printf("option, Nagios will treat this as \"flexible\" downtime.  Flexible downtime starts when the host goes down or becomes unreachable (sometime between the\n");
+			printf("option, Aionda Monitor will treat this as \"flexible\" downtime.  Flexible downtime starts when the host goes down or becomes unreachable (sometime between the\n");
 			printf("start and end times you specified) and lasts as long as the duration of time you enter.  The duration fields do not apply for fixed downtime.\n");
 			break;
 
 		case CMD_SCHEDULE_SVC_DOWNTIME:
-			printf("This command is used to schedule downtime for a particular service.  During the specified downtime, Nagios will not send notifications out about the service.\n");
-			printf("When the scheduled downtime expires, Nagios will send out notifications for this service as it normally would.  Scheduled downtimes are preserved\n");
+			printf("This command is used to schedule downtime for a particular service.  During the specified downtime, Aionda Monitor will not send notifications out about the service.\n");
+			printf("When the scheduled downtime expires, Aionda Monitor will send out notifications for this service as it normally would.  Scheduled downtimes are preserved\n");
 			printf("across program shutdowns and restarts.  Both the start and end times should be specified in the following format:  <b>mm/dd/yyyy hh:mm:ss</b>.\n");
 			printf("If you select the <i>fixed</i> option, the downtime will be in effect between the start and end times you specify.  If you do not select the <i>fixed</i>\n");
-			printf("option, Nagios will treat this as \"flexible\" downtime.  Flexible downtime starts when the service enters a non-OK state (sometime between the\n");
+			printf("option, Aionda Monitor will treat this as \"flexible\" downtime.  Flexible downtime starts when the service enters a non-OK state (sometime between the\n");
 			printf("start and end times you specified) and lasts as long as the duration of time you enter.  The duration fields do not apply for fixed downtime.\n");
 			break;
 
@@ -2684,20 +2684,20 @@ void show_command_help(int cmd) {
 			break;
 
 		case CMD_SCHEDULE_HOSTGROUP_HOST_DOWNTIME:
-			printf("This command is used to schedule downtime for all hosts in a particular hostgroup.  During the specified downtime, Nagios will not send notifications out about the hosts.\n");
-			printf("When the scheduled downtime expires, Nagios will send out notifications for the hosts as it normally would.  Scheduled downtimes are preserved\n");
+			printf("This command is used to schedule downtime for all hosts in a particular hostgroup.  During the specified downtime, Aionda Monitor will not send notifications out about the hosts.\n");
+			printf("When the scheduled downtime expires, Aionda Monitor will send out notifications for the hosts as it normally would.  Scheduled downtimes are preserved\n");
 			printf("across program shutdowns and restarts.  Both the start and end times should be specified in the following format:  <b>mm/dd/yyyy hh:mm:ss</b>.\n");
 			printf("If you select the <i>fixed</i> option, the downtime will be in effect between the start and end times you specify.  If you do not select the <i>fixed</i>\n");
-			printf("option, Nagios will treat this as \"flexible\" downtime.  Flexible downtime starts when a host goes down or becomes unreachable (sometime between the\n");
+			printf("option, Aionda Monitor will treat this as \"flexible\" downtime.  Flexible downtime starts when a host goes down or becomes unreachable (sometime between the\n");
 			printf("start and end times you specified) and lasts as long as the duration of time you enter.  The duration fields do not apply for fixed downtime.\n");
 			break;
 
 		case CMD_SCHEDULE_HOSTGROUP_SVC_DOWNTIME:
-			printf("This command is used to schedule downtime for all services in a particular hostgroup.  During the specified downtime, Nagios will not send notifications out about the services.\n");
-			printf("When the scheduled downtime expires, Nagios will send out notifications for the services as it normally would.  Scheduled downtimes are preserved\n");
+			printf("This command is used to schedule downtime for all services in a particular hostgroup.  During the specified downtime, Aionda Monitor will not send notifications out about the services.\n");
+			printf("When the scheduled downtime expires, Aionda Monitor will send out notifications for the services as it normally would.  Scheduled downtimes are preserved\n");
 			printf("across program shutdowns and restarts.  Both the start and end times should be specified in the following format:  <b>mm/dd/yyyy hh:mm:ss</b>.\n");
 			printf("If you select the <i>fixed</i> option, the downtime will be in effect between the start and end times you specify.  If you do not select the <i>fixed</i>\n");
-			printf("option, Nagios will treat this as \"flexible\" downtime.  Flexible downtime starts when a service enters a non-OK state (sometime between the\n");
+			printf("option, Aionda Monitor will treat this as \"flexible\" downtime.  Flexible downtime starts when a service enters a non-OK state (sometime between the\n");
 			printf("start and end times you specified) and lasts as long as the duration of time you enter.  The duration fields do not apply for fixed downtime.\n");
 			printf("Note that scheduling downtime for services does not automatically schedule downtime for the hosts those services are associated with.  If you want to also schedule downtime for all hosts in the hostgroup, check the 'Schedule downtime for hosts too' option.\n");
 			break;
@@ -2711,48 +2711,48 @@ void show_command_help(int cmd) {
 			break;
 
 		case CMD_START_ACCEPTING_PASSIVE_HOST_CHECKS:
-			printf("This command is used to have Nagios start obsessing over host checks.  Read the documentation on distributed monitoring for more information on this.\n");
+			printf("This command is used to have Aionda Monitor start obsessing over host checks.  Read the documentation on distributed monitoring for more information on this.\n");
 			break;
 
 		case CMD_STOP_ACCEPTING_PASSIVE_HOST_CHECKS:
-			printf("This command is used to stop Nagios from obsessing over host checks.\n");
+			printf("This command is used to stop Aionda Monitor from obsessing over host checks.\n");
 			break;
 
 		case CMD_ENABLE_PASSIVE_HOST_CHECKS:
-			printf("This command is used to allow Nagios to accept passive host check results that it finds in the external command file for a particular host.\n");
+			printf("This command is used to allow Aionda Monitor to accept passive host check results that it finds in the external command file for a particular host.\n");
 			break;
 
 		case CMD_DISABLE_PASSIVE_HOST_CHECKS:
-			printf("This command is used to stop Nagios from accepting passive host check results that it finds in the external command file for a particular host.  All passive check results that are found for this host will be ignored.\n");
+			printf("This command is used to stop Aionda Monitor from accepting passive host check results that it finds in the external command file for a particular host.  All passive check results that are found for this host will be ignored.\n");
 			break;
 
 		case CMD_START_OBSESSING_OVER_HOST_CHECKS:
-			printf("This command is used to have Nagios start obsessing over host checks.  Read the documentation on distributed monitoring for more information on this.\n");
+			printf("This command is used to have Aionda Monitor start obsessing over host checks.  Read the documentation on distributed monitoring for more information on this.\n");
 			break;
 
 		case CMD_STOP_OBSESSING_OVER_HOST_CHECKS:
-			printf("This command is used to stop Nagios from obsessing over host checks.\n");
+			printf("This command is used to stop Aionda Monitor from obsessing over host checks.\n");
 			break;
 
 		case CMD_SCHEDULE_HOST_CHECK:
-			printf("This command is used to schedule the next check of a particular host.  Nagios will re-queue the host to be checked at the time you specify.\n");
-			printf("If you select the <i>force check</i> option, Nagios will force a check of the host regardless of both what time the scheduled check occurs and whether or not checks are enabled for the host.\n");
+			printf("This command is used to schedule the next check of a particular host.  Aionda Monitor will re-queue the host to be checked at the time you specify.\n");
+			printf("If you select the <i>force check</i> option, Aionda Monitor will force a check of the host regardless of both what time the scheduled check occurs and whether or not checks are enabled for the host.\n");
 			break;
 
 		case CMD_START_OBSESSING_OVER_SVC:
-			printf("This command is used to have Nagios start obsessing over a particular service.\n");
+			printf("This command is used to have Aionda Monitor start obsessing over a particular service.\n");
 			break;
 
 		case CMD_STOP_OBSESSING_OVER_SVC:
-			printf("This command is used to stop Nagios from obsessing over a particular service.\n");
+			printf("This command is used to stop Aionda Monitor from obsessing over a particular service.\n");
 			break;
 
 		case CMD_START_OBSESSING_OVER_HOST:
-			printf("This command is used to have Nagios start obsessing over a particular host.\n");
+			printf("This command is used to have Aionda Monitor start obsessing over a particular host.\n");
 			break;
 
 		case CMD_STOP_OBSESSING_OVER_HOST:
-			printf("This command is used to stop Nagios from obsessing over a particular host.\n");
+			printf("This command is used to stop Aionda Monitor from obsessing over a particular host.\n");
 			break;
 
 		case CMD_ENABLE_SERVICEGROUP_SVC_NOTIFICATIONS:
@@ -2784,20 +2784,20 @@ void show_command_help(int cmd) {
 			break;
 
 		case CMD_SCHEDULE_SERVICEGROUP_HOST_DOWNTIME:
-			printf("This command is used to schedule downtime for all hosts in a particular servicegroup.  During the specified downtime, Nagios will not send notifications out about the hosts.\n");
-			printf("When the scheduled downtime expires, Nagios will send out notifications for the hosts as it normally would.  Scheduled downtimes are preserved\n");
+			printf("This command is used to schedule downtime for all hosts in a particular servicegroup.  During the specified downtime, Aionda Monitor will not send notifications out about the hosts.\n");
+			printf("When the scheduled downtime expires, Aionda Monitor will send out notifications for the hosts as it normally would.  Scheduled downtimes are preserved\n");
 			printf("across program shutdowns and restarts.  Both the start and end times should be specified in the following format:  <b>mm/dd/yyyy hh:mm:ss</b>.\n");
 			printf("If you select the <i>fixed</i> option, the downtime will be in effect between the start and end times you specify.  If you do not select the <i>fixed</i>\n");
-			printf("option, Nagios will treat this as \"flexible\" downtime.  Flexible downtime starts when a host goes down or becomes unreachable (sometime between the\n");
+			printf("option, Aionda Monitor will treat this as \"flexible\" downtime.  Flexible downtime starts when a host goes down or becomes unreachable (sometime between the\n");
 			printf("start and end times you specified) and lasts as long as the duration of time you enter.  The duration fields do not apply for fixed downtime.\n");
 			break;
 
 		case CMD_SCHEDULE_SERVICEGROUP_SVC_DOWNTIME:
-			printf("This command is used to schedule downtime for all services in a particular servicegroup.  During the specified downtime, Nagios will not send notifications out about the services.\n");
-			printf("When the scheduled downtime expires, Nagios will send out notifications for the services as it normally would.  Scheduled downtimes are preserved\n");
+			printf("This command is used to schedule downtime for all services in a particular servicegroup.  During the specified downtime, Aionda Monitor will not send notifications out about the services.\n");
+			printf("When the scheduled downtime expires, Aionda Monitor will send out notifications for the services as it normally would.  Scheduled downtimes are preserved\n");
 			printf("across program shutdowns and restarts.  Both the start and end times should be specified in the following format:  <b>mm/dd/yyyy hh:mm:ss</b>.\n");
 			printf("If you select the <i>fixed</i> option, the downtime will be in effect between the start and end times you specify.  If you do not select the <i>fixed</i>\n");
-			printf("option, Nagios will treat this as \"flexible\" downtime.  Flexible downtime starts when a service enters a non-OK state (sometime between the\n");
+			printf("option, Aionda Monitor will treat this as \"flexible\" downtime.  Flexible downtime starts when a service enters a non-OK state (sometime between the\n");
 			printf("start and end times you specified) and lasts as long as the duration of time you enter.  The duration fields do not apply for fixed downtime.\n");
 			printf("Note that scheduling downtime for services does not automatically schedule downtime for the hosts those services are associated with.  If you want to also schedule downtime for all hosts in the servicegroup, check the 'Schedule downtime for hosts too' option.\n");
 			break;
@@ -2813,7 +2813,7 @@ void show_command_help(int cmd) {
 		case CMD_SEND_CUSTOM_HOST_NOTIFICATION:
 		case CMD_SEND_CUSTOM_SVC_NOTIFICATION:
 			printf("This command is used to send a custom notification about the specified %s.  Useful in emergencies when you need to notify admins of an issue regarding a monitored system or service.\n", (cmd == CMD_SEND_CUSTOM_HOST_NOTIFICATION) ? "host" : "service");
-			printf("Custom notifications normally follow the regular notification logic in Nagios.  Selecting the <i>Forced</i> option will force the notification to be sent out, regardless of the time restrictions, whether or not notifications are enabled, etc.  Selecting the <i>Broadcast</i> option causes the notification to be sent out to all normal (non-escalated) and escalated contacts.  These options allow you to override the normal notification logic if you need to get an important message out.\n");
+			printf("Custom notifications normally follow the regular notification logic in Aionda Monitor.  Selecting the <i>Forced</i> option will force the notification to be sent out, regardless of the time restrictions, whether or not notifications are enabled, etc.  Selecting the <i>Broadcast</i> option causes the notification to be sent out to all normal (non-escalated) and escalated contacts.  These options allow you to override the normal notification logic if you need to get an important message out.\n");
 			break;
 
 		default:

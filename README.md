@@ -19,8 +19,10 @@ by Nagios Enterprises.
 - A monitoring-focused home page without promotional banners or page tours.
 
 The project keeps the existing monitoring engine, plugin interface, and object
-configuration format. Compatibility names such as the `nagios` executable,
-`nagios.cfg`, service accounts, and existing installation paths remain in place.
+configuration format. The main configuration file is `monitor.cfg`; an existing
+`nagios.cfg` in the same directory is still used when `monitor.cfg` is missing.
+Compatibility names such as the `nagios` executable, service accounts, and
+existing installation paths remain in place.
 The inherited 4.5.14 version currently identifies the upstream baseline.
 
 ## Build and test
