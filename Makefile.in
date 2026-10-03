@@ -274,7 +274,6 @@ coverage: test
 
 install-html:
 	cd $(BLD_HTM) && $(MAKE) install
-	$(MAKE) install-exfoliation
 
 install-base:
 	cd $(BLD_BASE) && $(MAKE) install
@@ -286,14 +285,12 @@ install:
 	cd $(BLD_BASE) && $(MAKE) $@
 	cd $(BLD_CGI) && $(MAKE) $@
 	cd $(BLD_HTM) && $(MAKE) $@
-	$(MAKE) install-exfoliation
 	$(MAKE) install-basic
 
 install-unstripped:
 	cd $(BLD_BASE) && $(MAKE) $@
 	cd $(BLD_CGI) && $(MAKE) $@
 	cd $(BLD_HTM) && $(MAKE) $@
-	$(MAKE) install-exfoliation
 	$(MAKE) install-basic
 
 install-basic:
@@ -390,7 +387,7 @@ install-exfoliation:
 
 	@echo ""
 	@echo "*** Exfoliation theme installed ***"
-	@echo "NOTE: Use 'make install-classicui' to switch to the old classic theme";
+	@echo "NOTE: Use 'make install-html' to restore the Aionda Monitor theme";
 	@echo ""
 
 install-classicui:
@@ -407,7 +404,7 @@ install-classicui:
 
 	@echo ""
 	@echo "*** Classic theme installed ***"
-	@echo "NOTE: Use 'make install-exfoliation' to switch to the old Exfoliation theme";
+	@echo "NOTE: Use 'make install-html' to restore the Aionda Monitor theme";
 	@echo ""
 
 install-init:

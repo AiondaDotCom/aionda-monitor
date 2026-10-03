@@ -12,6 +12,7 @@ Nagios Core 4 Change Log
 * Add optional object configuration changes through MCP: planned as a diff, validated with nagios -v, backed up, applied in place and reloaded (Stephan Ferraro)
 * Rename the main configuration file to monitor.cfg; the daemon falls back to nagios.cfg in the same directory when monitor.cfg does not exist (Stephan Ferraro)
 * Remove Nagios branding, page tour videos and upstream update notices from the web UI, CGIs, nagiostats and make output (Stephan Ferraro)
+* Fix make install and make install-html overwriting the redesigned stylesheets and icons with the old Exfoliation theme (Stephan Ferraro)
 * Remove the daily update check against api.nagios.org; check_for_updates and bare_update_check are now ignored with a deprecation warning (Stephan Ferraro)
 
 4.5.14 - 2026-08-05

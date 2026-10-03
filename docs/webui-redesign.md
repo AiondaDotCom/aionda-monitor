@@ -55,8 +55,9 @@ This document records what changed and what is still open.
   default install; their stylesheets were only switched to the color tokens,
   not visually tested.
 - **Legacy themes**: `make install-exfoliation` / `install-classicui` copy
-  the old stylesheets over the new ones and undo the redesign. They should be
-  dropped or reworked.
+  the old stylesheets over the new ones and undo the redesign; `make install-html`
+  restores it. `make install` no longer runs `install-exfoliation` (it used to,
+  which silently replaced the redesign on every install).
 - **Line icons** replace the old GIF status icons via `content: url()` on
   `<img>`. Chrome, Safari and Firefox support it; other browsers fall back to
   the GIFs.
