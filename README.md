@@ -18,6 +18,21 @@ by Nagios Enterprises.
 - Built-in MCP help so AI assistants can discover workflows without reading source code.
 - A monitoring-focused home page without promotional banners or page tours.
 
+## Screenshots
+
+All screenshots show demo data.
+
+![Home page with host and service summary (dark theme)](docs/screenshots/home-dark.png)
+
+| | |
+|---|---|
+| ![Tactical overview](docs/screenshots/tactical-overview.png) | ![Service problems with acknowledgements and downtimes](docs/screenshots/service-problems.png) |
+| **Tactical overview** | **Service problems** |
+| ![Service details with state information and commands](docs/screenshots/service-detail.png) | ![Home page in the light theme](docs/screenshots/home-light.png) |
+| **Service details** | **Light theme** |
+| ![Login page for password managers](docs/screenshots/login.png) | <img src="docs/screenshots/mobile-home.png" alt="Home page on a phone" width="45%"> <img src="docs/screenshots/mobile-problems.png" alt="Service problems on a phone" width="45%"> |
+| **Form login** | **Mobile** |
+
 The project keeps the existing monitoring engine, plugin interface, and object
 configuration format. The main configuration file is `monitor.cfg`; an existing
 `nagios.cfg` in the same directory is still used when `monitor.cfg` is missing.
