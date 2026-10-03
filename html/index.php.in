@@ -46,7 +46,7 @@ if ($theme != 'dark' && $theme != 'light') {
 	<meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
 	<title>Aionda Monitor: <?php echo htmlspecialchars($_SERVER['SERVER_NAME']); ?></title>
 	<link rel="shortcut icon" href="images/logos/aionda-monitor-icon.svg" type="image/svg+xml">
-	<link rel="stylesheet" href="stylesheets/common.css?<?php echo $this_version; ?>">
+	<link rel="stylesheet" href="stylesheets/common.css?<?php echo $this_version; ?>&amp;v=<?php echo filemtime(__DIR__.'/stylesheets/common.css'); ?>">
 	<script>
 		// Apply a theme picked with the toggle before anything is painted.
 		try {
@@ -83,6 +83,7 @@ if ($theme != 'dark' && $theme != 'light') {
 			justify-content: space-between;
 			padding: 18px 20px 16px;
 		}
+		.brand .fulllogo { width: 168px; height: 32px; }
 		.brand .status-dots { display: flex; gap: 5px; }
 		.brand .status-dots span { width: 7px; height: 7px; border-radius: 50%; }
 		.brand .status-dots span:nth-child(1) { background: var(--ok); }

@@ -20,7 +20,7 @@ if ($theme != 'dark' && $theme != 'light') {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
 <title>Aionda Monitor</title>
-<link href="stylesheets/common.css?<?php echo $this_version; ?>" type="text/css" rel="stylesheet">
+<link href="stylesheets/common.css?<?php echo $this_version; ?>&amp;v=<?php echo filemtime(__DIR__.'/stylesheets/common.css'); ?>" type="text/css" rel="stylesheet">
 </head>
 <body class="navbar">
 
